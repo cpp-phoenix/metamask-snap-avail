@@ -1,4 +1,3 @@
-import type { ApiPromise } from '@polkadot/api/promise';
 import type { OnRpcRequestHandler } from '@metamask/snaps-types';
 import { assert } from 'superstruct';
 import type { MetamaskState } from './interfaces';
@@ -22,6 +21,7 @@ import {
   validSignPayloadJSONSchema,
   validSignPayloadRawSchema
 } from './util/validation';
+import { ApiPromise } from 'avail-js-sdk';
 
 const apiDependentMethods = [
   'getBlock',

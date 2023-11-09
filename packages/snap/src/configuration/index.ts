@@ -1,23 +1,17 @@
 import type { SnapConfig } from '@chainsafe/metamask-polkadot-types';
 import { getMetamaskState } from '../rpc/getMetamaskState';
 import {
+  availConfiguration,
   defaultConfiguration,
-  kusamaConfiguration,
-  polkadotConfiguration,
-  westendConfiguration
+
 } from './predefined';
 
 export function getDefaultConfiguration(networkName: string): SnapConfig {
   switch (networkName) {
-    case 'polkadot':
-      console.log('Polkadot configuration selected');
-      return polkadotConfiguration;
-    case 'kusama':
-      console.log('Kusama configuration selected');
-      return kusamaConfiguration;
-    case 'westend':
-      console.log('Westend configuration selected');
-      return westendConfiguration;
+
+    case 'avail':
+      console.log('avail configuration selected');
+      return availConfiguration;
     default:
       return defaultConfiguration;
   }

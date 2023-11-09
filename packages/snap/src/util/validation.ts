@@ -3,6 +3,7 @@ import type { SignerPayloadJSON, SignerPayloadRaw } from '@polkadot/types/types'
 import type { Describe } from 'superstruct';
 import { array, enums, number, object, optional, string, type, union } from 'superstruct';
 
+
 const SignaturePayloadJSONSchema = type({
   address: string(),
   blockHash: string(),
@@ -11,13 +12,12 @@ const SignaturePayloadJSONSchema = type({
   genesisHash: string(),
   method: string(),
   nonce: string(),
-  signedExtensions: array(string()),
   specVersion: string(),
   tip: string(),
   transactionVersion: string(),
+  signedExtensions: array(string()),
   version: number()
 });
-
 export const validSignPayloadJSONSchema: Describe<{
   payload: SignerPayloadJSON;
 }> = object({

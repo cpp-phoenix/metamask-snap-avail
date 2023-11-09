@@ -11,6 +11,8 @@ import {
   TextField
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
+// import { formatNumberToBalance } from 'avail-js-sdk';
+
 import { getCurrency } from '../../services/format';
 import { MetaMaskContext } from '../../context/metamask';
 
@@ -58,13 +60,10 @@ export const Transfer: React.FC<ITransferProps> = ({ network, onNewTransferCallb
     if (amount && recipient) {
       const api = state.polkadotSnap.snap.getMetamaskSnapApi();
       if (amount && recipient) {
-        const convertedAmount = BigInt(amount) * BigInt('1000000000');
-        const txPayload = await api.generateTransactionPayload(
-          convertedAmount.toString(),
-          recipient
-        );
-        const signedTx = await api.signPayloadJSON(txPayload.payload);
-        const tx = await api.send(signedTx, txPayload);
+        // const convertedAmount = formatNumberToBalance(parseFloat(amount.toString()), 12);
+        const tx = await api.generateTransactionPayload(1000, recipient);
+        // const tx = await api.signPayloadJSON(txPayload.payload);
+        // const tx = await api.send(signedTx, txPayload);
         showAlert('info', `Transaction: ${JSON.stringify(tx, null, 2)}`);
         // clear fields
         setAmount('');

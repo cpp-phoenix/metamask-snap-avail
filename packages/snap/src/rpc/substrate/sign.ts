@@ -1,9 +1,10 @@
-import type { ApiPromise } from '@polkadot/api/';
+// import type { ApiPromise } from '@polkadot/api/';
 import type { SignerPayloadJSON, SignerPayloadRaw } from '@polkadot/types/types';
 import { hexToU8a, u8aToHex } from '@polkadot/util';
 import { getKeyPair } from '../../polkadot/account';
 import { showConfirmationDialog } from '../../util/confirmation';
 import { messageCreator } from '../../util/messageCreator';
+import { ApiPromise } from 'avail-js-sdk';
 
 export async function signPayloadJSON(
   api: ApiPromise,
@@ -44,6 +45,7 @@ export async function signPayloadRaw(
     prompt: `Do you want to sign this message?`,
     textAreaContent: payload.data
   });
+
   // return seed if user confirmed action
   if (confirmation) {
     const signedBytes = keyPair.sign(hexToU8a(payload.data));

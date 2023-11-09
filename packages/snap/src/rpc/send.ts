@@ -1,13 +1,14 @@
-import type { ApiPromise } from '@polkadot/api';
 import type { Transaction, TxPayload } from '@chainsafe/metamask-polkadot-types';
 import { saveTxToState } from '../polkadot/tx';
 import { getAddress } from './getAddress';
+import { ApiPromise } from 'avail-js-sdk';
 
 export async function send(
   api: ApiPromise,
   signature: Uint8Array | `0x${string}`,
   txPayload: TxPayload
 ): Promise<Transaction> {
+
   const sender = await getAddress();
   const destination = txPayload.payload.address;
 

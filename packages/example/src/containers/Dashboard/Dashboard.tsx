@@ -31,7 +31,7 @@ export const Dashboard = (): React.JSX.Element => {
     number: ''
   });
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [network, setNetwork] = useState<SnapNetworks>('westend');
+  const [network, setNetwork] = useState<SnapNetworks>('avail');
   const [api, setApi] = useState<MetamaskSnapApi | null>(null);
 
   const handleNewTransaction = useCallback(async () => {
@@ -98,10 +98,11 @@ export const Dashboard = (): React.JSX.Element => {
               alignContent={'flex-start'}
             >
               <InputLabel>Network</InputLabel>
-              <Select defaultValue={'westend'} onChange={handleNetworkChange}>
-                <MenuItem value={'westend'}>Westend</MenuItem>
+              <Select defaultValue={'avail'} onChange={handleNetworkChange}>
+                {/* <MenuItem value={'westend'}>Westend</MenuItem>
                 <MenuItem value={'kusama'}>Kusama</MenuItem>
-                <MenuItem value={'polkadot'}>Polkadot</MenuItem>
+                <MenuItem value={'polkadot'}>Polkadot</MenuItem> */}
+                <MenuItem value={'avail'}>Avail</MenuItem>
               </Select>
             </Box>
             <Grid container spacing={3} alignItems={'stretch'}>

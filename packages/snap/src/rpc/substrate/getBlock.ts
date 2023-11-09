@@ -1,9 +1,19 @@
-import type { ApiPromise } from '@polkadot/api';
-import type { BlockId, BlockInfo } from '@chainsafe/metamask-polkadot-types';
+import { BlockId, BlockInfo } from '@chainsafe/metamask-polkadot-types';
+// import type { ApiPromise } from '@polkadot/api';
+// import type { BlockId, BlockInfo } from '@chainsafe/metamask-polkadot-types';
 import type { BlockHash } from '@polkadot/types/interfaces';
+import { ApiPromise } from 'avail-js-sdk';
 
 async function _getBlock(blockHash: BlockHash | string, api: ApiPromise): Promise<BlockInfo> {
-  const signedBlock = await api.rpc.chain.getBlock(blockHash);
+  const signedBlock = await api.rpc.chain.getBlock(blockHash.toString());
+  return {
+    hash: signedBlock.block.hash.toHex(),
+    number: signedBlock.block.header.number.toString()
+  };
+}
+
+async function _getLatestBlock(api: ApiPromise): Promise<BlockInfo> {
+  const signedBlock = await api.rpc.chain.getBlock();
   return {
     hash: signedBlock.block.hash.toHex(),
     number: signedBlock.block.header.number.toString()
@@ -37,8 +47,7 @@ export async function getBlock(blockTag: BlockId, api: ApiPromise): Promise<Bloc
     case 'string':
       if (blockTag === 'latest') {
         // get latest block
-        const { hash } = await api.rpc.chain.getHeader();
-        return await _getBlock(hash, api);
+        return await _getLatestBlock(api);
       }
       if (blockTag.startsWith('0x')) {
         // get block by hash

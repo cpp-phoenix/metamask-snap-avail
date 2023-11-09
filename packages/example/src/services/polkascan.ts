@@ -4,6 +4,8 @@ export function getPolkascanTxUrl(txHash: string, network: string): string {
       return `https://polkascan.io/kusama/transaction/${txHash}`;
     case 'westend':
       return `https://westend.subscan.io/extrinsic/${txHash}`;
+    case 'avail':
+      return `https://kate.avail.tools/#/explorer/${txHash}`;
     default:
       return '';
   }

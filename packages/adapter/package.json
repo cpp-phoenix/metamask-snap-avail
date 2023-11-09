@@ -19,7 +19,8 @@
   "dependencies": {
     "@polkadot/api": "^10.9.1",
     "@polkadot/extension-inject": "^0.46.5",
-    "@polkadot/types-augment": "^10.9.1"
+    "@polkadot/types-augment": "^10.9.1",
+    "avail-js": "^0.1.0"
   },
   "scripts": {
     "prebuild": "rm -rf build",

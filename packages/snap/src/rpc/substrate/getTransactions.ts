@@ -7,4 +7,5 @@ export async function getTransactions(): Promise<Transaction[]> {
     params: { operation: 'get' }
   })) as MetamaskState;
   return state.transactions as unknown as Transaction[];
+
 }
