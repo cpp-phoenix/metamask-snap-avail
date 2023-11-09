@@ -31,11 +31,8 @@ const getCoinTypeByNetwork = (network: SnapNetworks): number => {
   console.log('Network at coin TYPE', network);
 
   switch (network) {
-    case 'kusama':
-    case 'westend':
-      return 434;
     case 'avail':
-      return 1284;
+      return 354;
     case 'polkadot':
       return 354;
   }

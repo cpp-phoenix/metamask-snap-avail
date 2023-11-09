@@ -2,17 +2,13 @@
 import type { SubmittableExtrinsic } from '@polkadot/api/types';
 import type { TxPayload } from '@chainsafe/metamask-polkadot-types';
 import { getAddress } from './getAddress';
-import { ApiPromise, formatNumberToBalance, getDecimals } from 'avail-js-sdk';
-import { getKeyPair } from '../polkadot/account';
-import { showConfirmationDialog } from '../util/confirmation';
-import { Hash } from '@polkadot/types/interfaces';
-import { getApi } from '../../src/polkadot/api';
+import { ApiPromise, formatNumberToBalance } from 'avail-js-sdk';
 
 export async function generateTransactionPayload(
   api: ApiPromise,
   to: string,
   amount: string | number
-): Promise<Hash | undefined> {
+): Promise<TxPayload> {
   // fetch last signed block and account address
   const [signedBlock, address] = await Promise.all([api.rpc.chain.getBlock(), getAddress()]);
   // create signer options
@@ -26,7 +22,8 @@ export async function generateTransactionPayload(
     nonce
   };
   // define transaction method
-  const data: SubmittableExtrinsic<'promise'> = api.tx.balances.transfer(to, amount);
+  let _amount = formatNumberToBalance(1);
+  const data: SubmittableExtrinsic<'promise'> = api.tx.balances.transfer(to, _amount);
   const signerPayload = api.createType('SignerPayload', {
     genesisHash: api.genesisHash,
     runtimeVersion: api.runtimeVersion,
@@ -38,29 +35,9 @@ export async function generateTransactionPayload(
     signedExtensions: [],
     transactionVersion: data.version
   });
-  const keyPair = await getKeyPair();
 
-  const confirmation = await showConfirmationDialog({
-    description: `It will be signed with address: ${keyPair.address}`,
-    prompt: `Do you want to sign this message?`,
-    textAreaContent: signerPayload.toPayload().method
-  });
-  if (confirmation) {
-    let api = await getApi();
-    const options = { app_id: 0, nonce: -1 }
-    const decimals = getDecimals(api);
-    const amount = formatNumberToBalance(1, decimals)
-    const tx = api.tx.balances.transfer(to, amount).signAndSend(keyPair, options);
-    console.log("TX", JSON.stringify(tx))
-    return tx;
-  }
-  return undefined;
-
-  // create SignerPayload
-
-
-  // return {
-  //   payload: signerPayload.toPayload(),
-  //   tx: transaction.toHex()
-  // };
+  return {
+    payload: signerPayload.toPayload(),
+    tx: data.toHex()
+  };
 }

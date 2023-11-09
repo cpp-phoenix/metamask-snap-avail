@@ -1,17 +1,14 @@
 import type { SnapConfig } from '@chainsafe/metamask-polkadot-types';
 
-
 export const availConfiguration: SnapConfig = {
   addressPrefix: 42,
   networkName: 'avail',
   unit: {
-    decimals: 12,
+    decimals: 18,
     image: 'https://svgshare.com/i/L2d.svg',
     symbol: 'avl'
   },
-  wsRpcUrl: 'wss://couscous-devnet.avail.tools/ws',
+  wsRpcUrl: 'https://couscous-devnet.avail.tools/api'
 };
-
-
 
 export const defaultConfiguration: SnapConfig = availConfiguration;
