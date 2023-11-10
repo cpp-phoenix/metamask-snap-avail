@@ -1,5 +1,5 @@
 import type { BlockId, TxPayload } from '@chainsafe/metamask-polkadot-types';
-import type { SignerPayloadJSON, SignerPayloadRaw } from '@polkadot/types/types';
+import type { SignerPayloadRaw } from '@polkadot/types/types';
 import type { Describe } from 'superstruct';
 import { array, enums, number, object, optional, string, type, union } from 'superstruct';
 
@@ -74,3 +74,54 @@ export const validSendSchema: Describe<{
     tx: string()
   })
 });
+
+export interface SignerPayloadJSON {
+  /**
+   * @description The ss-58 encoded address
+   */
+  address: string;
+  /**
+   * @description The checkpoint hash of the block, in hex
+   */
+  blockHash: string;
+  /**
+   * @description The checkpoint block number, in hex
+   */
+  blockNumber: string;
+  /**
+   * @description The era for this transaction, in hex
+   */
+  era: string;
+  /**
+   * @description The genesis hash of the chain, in hex
+   */
+  genesisHash: string;
+  /**
+   * @description The encoded method (with arguments) in hex
+   */
+  method: string;
+  /**
+   * @description The nonce for this transaction, in hex
+   */
+  nonce: string;
+  /**
+   * @description The current spec version for the runtime
+   */
+  specVersion: string;
+  /**
+   * @description The tip for this transaction, in hex
+   */
+  tip: string;
+  /**
+   * @description The current transaction version for the runtime
+   */
+  transactionVersion: string;
+  /**
+   * @description The applicable signed extensions for this runtime
+   */
+  signedExtensions: string[];
+  /**
+   * @description The version of the extrinsic we are dealing with
+   */
+  version: number;
+}
