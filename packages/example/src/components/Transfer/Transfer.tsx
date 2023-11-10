@@ -61,7 +61,7 @@ export const Transfer: React.FC<ITransferProps> = ({ network, onNewTransferCallb
       const api = state.polkadotSnap.snap.getMetamaskSnapApi();
       if (amount && recipient) {
         // const convertedAmount = formatNumberToBalance(parseFloat(amount.toString()), 12);
-        const txPayload = await api.generateTransactionPayload(1000, recipient);
+        const txPayload = await api.generateTransactionPayload(amount, recipient);
         const signedTx = await api.signPayloadJSON(txPayload.payload);
         const tx = await api.send(signedTx, txPayload);
         showAlert('info', `Transaction: ${JSON.stringify(tx, null, 2)}`);

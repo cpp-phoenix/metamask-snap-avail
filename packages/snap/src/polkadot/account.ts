@@ -35,5 +35,7 @@ const getCoinTypeByNetwork = (network: SnapNetworks): number => {
       return 354;
     case 'polkadot':
       return 354;
+    default:
+      return 354;
   }
 };

@@ -22,7 +22,7 @@ export async function generateTransactionPayload(
     nonce
   };
   // define transaction method
-  let _amount = formatNumberToBalance(1);
+  let _amount = formatNumberToBalance(parseFloat(amount.toString()));
   const data: SubmittableExtrinsic<'promise'> = api.tx.balances.transfer(to, _amount);
   const signerPayload = api.createType('SignerPayload', {
     genesisHash: api.genesisHash,
