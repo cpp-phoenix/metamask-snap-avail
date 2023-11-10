@@ -22,9 +22,14 @@ Developers who wish to use the snap locally must use [MetaMask Flask](https://me
 run the following commands from the project root to launch the
 [Polkadot Wallet Snap Example dApp](https://github.com/ChainSafe/metamask-snap-polkadot/tree/master/packages/example).
 
-- `yarn install`
-- `yarn run demo`
+- `cd packages/snap`
+- `rm -rf build && rm -rf dist && cd ../.. && yarn build:snap && cd packages/snap && mm-snap manifest --fix`
+- `yarn start` <br/>
 
+In another terminal
+
+- `cd packages/example`
+- `yarn start`
 
 ## License
 
@@ -34,7 +39,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-   http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
