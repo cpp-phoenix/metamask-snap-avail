@@ -1,4 +1,4 @@
-# Polkadot Wallet Snap for MetaMask
+# Avail wallet snap.
 
 ![](https://github.com/chainsafe/metamask-snap-polkadot/workflows/ci/badge.svg)
 ![](https://img.shields.io/github/issues-raw/chainsafe/metamask-snap-polkadot)
@@ -11,10 +11,10 @@ capabilities to include support for Polkadot, Kusama, and other
 
 ## Documentation
 
-Polkadot Wallet snap architecture, integration steps and detailed API documentation for dApp
+This snap is a built on top of polkadot snap by chainsafe, its architecture, integration steps and detailed API documentation for dApp
 developers is covered in the
 [project wiki](https://github.com/ChainSafe/metamask-snap-polkadot/wiki), which also includes a
-usage guide for the [example dApp](https://polkadot.snap.chainsafe.io/).
+usage guide for the example dApp
 
 ## Local Development
 
