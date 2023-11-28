@@ -21,7 +21,9 @@ usage guide for the example dApp
 Developers who wish to use the snap locally must use [MetaMask Flask](https://metamask.io/flask/);
 run the following commands from the project root to launch the
 [Polkadot Wallet Snap Example dApp](https://github.com/ChainSafe/metamask-snap-polkadot/tree/master/packages/example).
+Please make sure to be using yarn for everything.
 
+- `yarn install`
 - `cd packages/snap`
 - `rm -rf build && rm -rf dist && cd ../.. && yarn build:snap && cd packages/snap && mm-snap manifest --fix`
 - `yarn start` <br/>
