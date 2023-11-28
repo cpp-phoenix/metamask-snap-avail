@@ -1,4 +1,4 @@
-import type { SnapConfig } from '@chainsafe/metamask-polkadot-types';
+import type { SnapConfig } from '@avail/metamask-polkadot-types';
 import {
   exportSeed,
   generateTransactionPayload,

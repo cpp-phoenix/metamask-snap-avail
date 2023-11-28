@@ -1,5 +1,5 @@
 import type { Injected, InjectedAccount, InjectedWindow } from '@polkadot/extension-inject/types';
-import type { SnapConfig } from '@chainsafe/metamask-polkadot-types';
+import type { SnapConfig } from '@avail/metamask-polkadot-types';
 import type { SignerPayloadJSON, SignerPayloadRaw, SignerResult } from '@polkadot/types/types';
 import type { HexString } from '@polkadot/util/types';
 import { enablePolkadotSnap } from '../index';

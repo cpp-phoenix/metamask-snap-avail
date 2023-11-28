@@ -1,5 +1,5 @@
 {
-  "name": "@chainsafe/metamask-polkadot-adapter",
+  "name": "@avail/metamask-polkadot-adapter",
   "version": "0.5.1",
   "main": "./build/index.js",
   "module": "./build/index.js",

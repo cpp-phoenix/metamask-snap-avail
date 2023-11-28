@@ -1,6 +1,6 @@
 // import type { ApiPromise } from '@polkadot/api/';
 import type { SubmittableExtrinsic } from '@polkadot/api/types';
-import type { TxPayload } from '@chainsafe/metamask-polkadot-types';
+import type { TxPayload } from '@avail/metamask-polkadot-types';
 import { getAddress } from './getAddress';
 import { ApiPromise, formatNumberToBalance } from 'avail-js-sdk';
 

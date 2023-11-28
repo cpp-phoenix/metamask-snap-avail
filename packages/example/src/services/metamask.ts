@@ -1,8 +1,8 @@
 import { web3EnablePromise } from '@polkadot/extension-dapp';
-import type { InjectedMetamaskExtension } from '@chainsafe/metamask-polkadot-adapter/src/types';
+import type { InjectedMetamaskExtension } from '@avail/metamask-polkadot-adapter/src/types';
 import type { InjectedExtension } from '@polkadot/extension-inject/types';
-import { enablePolkadotSnap } from '@chainsafe/metamask-polkadot-adapter';
-import type { MetamaskPolkadotSnap } from '@chainsafe/metamask-polkadot-adapter/build/snap';
+import { enablePolkadotSnap } from '@avail/metamask-polkadot-adapter';
+import type { MetamaskPolkadotSnap } from '@avail/metamask-polkadot-adapter/build/snap';
 
 export function hasMetaMask(): boolean {
   if (!window.ethereum) {

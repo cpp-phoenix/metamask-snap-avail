@@ -1,4 +1,4 @@
-import type { Transaction } from '@chainsafe/metamask-polkadot-types';
+import type { Transaction } from '@avail/metamask-polkadot-types';
 import type { MetamaskState } from '../../interfaces';
 
 export async function getTransactions(): Promise<Transaction[]> {
@@ -7,5 +7,4 @@ export async function getTransactions(): Promise<Transaction[]> {
     params: { operation: 'get' }
   })) as MetamaskState;
   return state.transactions as unknown as Transaction[];
-
 }

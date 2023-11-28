@@ -1,5 +1,5 @@
-// import type { Transaction } from '@chainsafe/metamask-polkadot-types';
-import { Transaction } from '@chainsafe/metamask-polkadot-types';
+// import type { Transaction } from "@avail/metamask-polkadot-types";
+import { Transaction } from '@avail/metamask-polkadot-types';
 import { getMetamaskState } from '../rpc/getMetamaskState';
 
 export async function saveTxToState(tx: Transaction): Promise<void> {

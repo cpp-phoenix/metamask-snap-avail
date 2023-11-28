@@ -1,6 +1,6 @@
 import chai, { expect } from 'chai';
 import sinonChai from 'sinon-chai';
-import type { SnapConfig } from '@chainsafe/metamask-polkadot-types';
+import type { SnapConfig } from '@avail/metamask-polkadot-types';
 import { getConfiguration, getDefaultConfiguration } from '../../../src/configuration';
 import {
   defaultConfiguration,

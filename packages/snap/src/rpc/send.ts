@@ -1,4 +1,4 @@
-import type { Transaction, TxPayload } from '@chainsafe/metamask-polkadot-types';
+import type { Transaction, TxPayload } from '@avail/metamask-polkadot-types';
 import { saveTxToState } from '../polkadot/tx';
 import { getAddress } from './getAddress';
 import { ApiPromise } from 'avail-js-sdk';

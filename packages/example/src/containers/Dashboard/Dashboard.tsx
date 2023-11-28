@@ -11,8 +11,8 @@ import {
   Select,
   Typography
 } from '@material-ui/core';
-import type { BlockInfo, SnapNetworks, Transaction } from '@chainsafe/metamask-polkadot-types';
-import type { MetamaskSnapApi } from '@chainsafe/metamask-polkadot-adapter/src/types';
+import type { BlockInfo, SnapNetworks, Transaction } from '@avail/metamask-polkadot-types';
+import type { MetamaskSnapApi } from '@avail/metamask-polkadot-adapter/src/types';
 import { Transfer } from '../../components/Transfer/Transfer';
 import { SignMessage } from '../../components/SignMessage/SignMessage';
 import { TransactionTable } from '../../components/TransactionTable/TransactionTable';

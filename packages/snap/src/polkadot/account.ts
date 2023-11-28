@@ -1,7 +1,7 @@
 // import { Keyring } from '@polkadot/keyring';
 import { stringToU8a } from '@polkadot/util';
 import type { JsonBIP44CoinTypeNode } from '@metamask/key-tree';
-import type { SnapNetworks } from '@chainsafe/metamask-polkadot-types';
+import type { SnapNetworks } from '@avail/metamask-polkadot-types';
 import { getConfiguration } from '../configuration';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { getKeyringFromSeed } from 'avail-js-sdk';
