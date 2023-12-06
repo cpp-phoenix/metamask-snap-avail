@@ -7,7 +7,7 @@ import type {
 } from '@avail/metamask-polkadot-types';
 import type { InjectedExtension } from '@polkadot/extension-inject/types';
 import type { SignerPayloadRaw } from '@polkadot/types/types/extrinsic';
-import type { SignerPayloadJSON } from '@polkadot/types/types';
+import type { SignerPayloadJSON } from '@avail/metamask-polkadot-types';
 
 export interface MetamaskSnapApi {
   getAddress(): Promise<string>;
