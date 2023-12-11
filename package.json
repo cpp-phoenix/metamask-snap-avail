@@ -7,9 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build:snap": "yarn workspace @chainsafe/polkadot-snap build",
+    "build:snap": "yarn workspace @avail/polkadot-snap build",
     "build:adapter": "yarn workspace @avail/metamask-polkadot-adapter build",
-    "start:snap": "yarn workspace @chainsafe/polkadot-snap serve",
+    "start:snap": "yarn workspace @avail/polkadot-snap serve",
     "start:example": "yarn workspace example start",
     "predemo": "yarn run build:snap && yarn run build:adapter",
     "build": "yarn workspaces foreach -vpt run build",

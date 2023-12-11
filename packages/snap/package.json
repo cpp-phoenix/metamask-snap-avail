@@ -1,5 +1,5 @@
 {
-  "name": "@chainsafe/polkadot-snap",
+  "name": "@avail/polkadot-snap",
   "version": "0.7.7",
   "description": "MetaMask snap for interacting with Polkadot dApps",
   "main": "build/index.js",

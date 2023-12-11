@@ -3,7 +3,7 @@ import type { SnapConfig } from '@avail/metamask-polkadot-types';
 import { MetamaskPolkadotSnap } from './snap';
 import { hasMetaMask, isMetamaskSnapsSupported, isPolkadotSnapInstalled } from './utils';
 
-const defaultSnapOrigin = 'npm:@chainsafe/polkadot-snap';
+const defaultSnapOrigin = 'npm:@avail/polkadot-snap';
 
 export type SnapInstallationParamNames = string;
 
