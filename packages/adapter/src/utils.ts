@@ -41,6 +41,7 @@ export async function isMetamaskSnapsSupported(): Promise<boolean> {
     await getWalletSnaps();
     return true;
   } catch (e) {
+    console.error('Failed to check Metamask snaps support', e);
     return false;
   }
 }
