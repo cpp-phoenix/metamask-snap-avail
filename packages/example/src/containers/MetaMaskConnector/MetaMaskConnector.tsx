@@ -2,8 +2,8 @@ import { Box, Button, IconButton, Snackbar } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import React, { Fragment, useCallback, useContext, useEffect } from 'react';
 import Alert from '@material-ui/lab/Alert';
-import { MetamaskActions, MetaMaskContext } from '../../context/metamask';
-import { initiatePolkadotSnap, isPolkadotSnapInstalled } from '../../services/metamask';
+import { MetamaskActions, MetaMaskContext } from 'context/metamask';
+import { initiatePolkadotSnap, isPolkadotSnapInstalled } from 'services/metamask';
 
 export const MetaMaskConnector = (): React.JSX.Element => {
   const [state, dispatch] = useContext(MetaMaskContext);

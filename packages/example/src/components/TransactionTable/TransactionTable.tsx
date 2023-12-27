@@ -31,32 +31,33 @@ export const TransactionTable = (props: TransactionTableProps): React.JSX.Elemen
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.txs.map((tx) => (
-            <TableRow key={tx.hash}>
-              <TableCell align="left" component="th" scope="row">
-                {tx.hash}
-              </TableCell>
-              <TableCell align="center" component="th" scope="row">
-                {tx.block}
-              </TableCell>
-              <TableCell align="center">{shortAddress(tx.sender)}</TableCell>
-              <TableCell align="center">{shortAddress(tx.destination)}</TableCell>
-              <TableCell align="center">
-                {formatBalance(tx.amount, {
-                  decimals: 12,
-                  withSi: true,
-                  withUnit: 'KSM'
-                })}
-              </TableCell>
-              <TableCell align="center">
-                {formatBalance(tx.fee, {
-                  decimals: 12,
-                  withSi: true,
-                  withUnit: 'KSM'
-                })}
-              </TableCell>
-            </TableRow>
-          ))}
+          {props.txs.map(
+            (tx) => null
+            // <TableRow key={tx.hash}>
+            //   <TableCell align="left" component="th" scope="row">
+            //     {tx.hash}
+            //   </TableCell>
+            //   <TableCell align="center" component="th" scope="row">
+            //     {tx.block}
+            //   </TableCell>
+            //   <TableCell align="center">{shortAddress(tx.sender)}</TableCell>
+            //   <TableCell align="center">{shortAddress(tx.destination)}</TableCell>
+            //   <TableCell align="center">
+            //     {formatBalance(tx.amount, {
+            //       decimals: 12,
+            //       withSi: true,
+            //       withUnit: 'KSM'
+            //     })}
+            //   </TableCell>
+            //   <TableCell align="center">
+            //     {formatBalance(tx.fee, {
+            //       decimals: 12,
+            //       withSi: true,
+            //       withUnit: 'KSM'
+            //     })}
+            //   </TableCell>
+            // </TableRow>
+          )}
         </TableBody>
       </Table>
     </TableContainer>

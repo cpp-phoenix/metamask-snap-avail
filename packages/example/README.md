@@ -1,4 +1,4 @@
-### Metamask polkadot snap example 
+### Metamask polkadot snap example
 
 - `yarn install`
 - serve snap
