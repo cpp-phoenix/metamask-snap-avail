@@ -8,6 +8,9 @@ export const theme: DefaultTheme = {
       grey2: '#A9AAC2',
       grey3: '#D4D4E1',
       grey4: '#F7F7F9', //Background
+      grey5: '#1E2129',
+      grey6: '#292E3A',
+      grey7: '#222D30',
       white: '#FFFFFF'
     },
     primary: {
@@ -18,7 +21,7 @@ export const theme: DefaultTheme = {
     },
     secondary: {
       light: '#FFEAE8',
-      main: '#FB4C43',
+      main: '#228AA7',
       dark: '#C93D36',
       contrastText: '#FFFFFF'
     },
@@ -116,7 +119,7 @@ export const theme: DefaultTheme = {
     h1: {
       fontFamily: 'Roboto Bold',
       fontWeight: 700,
-      fontSize: '40px',
+      fontSize: '50px',
       lineHeight: '56px'
     },
     h2: {
@@ -160,7 +163,7 @@ export const theme: DefaultTheme = {
       boxShadow: '0px 6px 24px -6px rgba(106, 115, 125, 0.2)'
     },
     dividerBottom: {
-      boxShadow: 'inset 0px -1px 0px #F2F4F6'
+      boxShadow: 'inset 0px -1px 0px #1E2129'
     },
     dividerTop: {
       boxShadow: 'inset 0px 1px 0px #F2F4F6;'

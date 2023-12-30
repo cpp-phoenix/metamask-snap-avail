@@ -32,14 +32,10 @@ export const AccountDetailsModalView = ({ address }: Props) => {
           {/* <ModifyIcon /> */}
         </TitleDiv>
         <AddressQrCode value={address} />
-        <AddressCopy address={address} />
+        {/* <AddressCopy address={address} /> */}
       </Wrapper>
       <ButtonDiv>
-        <ButtonStyled
-          backgroundTransparent
-          borderVisible
-          onClick={() => openExplorerTab(address, 'contract', chainId)}
-        >
+        <ButtonStyled onClick={() => openExplorerTab(address, 'contract', chainId)}>
           VIEW ON EXPLORER
         </ButtonStyled>
         {/* <ButtonStyled backgroundTransparent borderVisible onClick={() => getPrivateKeyFromAddress(address, chainId)}>

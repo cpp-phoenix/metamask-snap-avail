@@ -6,10 +6,8 @@ export default {
   component: AssetQuantityView
 } as Meta;
 
-export const Default = () => <AssetQuantityView currencyValue="0.02" USDValue="58.39" />;
+export const Default = () => <AssetQuantityView currencyValue="0.02" />;
 
-export const Centered = () => <AssetQuantityView currencyValue="0.02" USDValue="58.39" centered />;
+export const Centered = () => <AssetQuantityView currencyValue="0.02" centered />;
 
-export const BigCentered = () => (
-  <AssetQuantityView currencyValue="0.02" USDValue="58.39" centered size="big" />
-);
+export const BigCentered = () => <AssetQuantityView currencyValue="0.02" centered size="big" />;

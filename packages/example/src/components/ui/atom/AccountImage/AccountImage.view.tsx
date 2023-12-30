@@ -8,7 +8,7 @@ interface Props {
   connected?: boolean;
 }
 
-export const AccountImageView = ({ address, size = 40, connected, ...otherProps }: Props) => {
+export const AccountImageView = ({ address, size = 55, connected, ...otherProps }: Props) => {
   const ref = useRef<HTMLDivElement>();
 
   useEffect(() => {

@@ -6,6 +6,6 @@ export const Backdrop = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: ${(props) => props.theme.palette.grey.black};
+  background-color: ${(props) => props.theme.palette.grey.grey7};
   opacity: 0.5;
 `;

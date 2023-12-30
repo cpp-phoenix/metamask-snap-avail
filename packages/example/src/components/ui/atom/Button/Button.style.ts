@@ -19,7 +19,7 @@ export const Wrapper = styled.button<IButtonProps>`
   background: ${(props) =>
     props.backgroundTransparent
       ? 'transparent'
-      : props.theme.palette[props.variant || VariantOptions.PRIMARY].main};
+      : props.theme.palette[props.variant || VariantOptions.SECONDARY].main};
   color: ${(props) =>
     props.backgroundTransparent
       ? props.theme.palette.grey.black

@@ -10,7 +10,7 @@ import { AccountDetailsModal } from '../AccountDetailsModal';
 import { ConnectInfoModal } from '../ConnectInfoModal';
 import { AddTokenModal } from '../AddTokenModal';
 import {
-  // AccountDetailButton,
+  AccountDetailButton,
   AccountDetails,
   AccountDetailsContent,
   AccountImageStyled,
@@ -63,7 +63,7 @@ export const SideBarView = ({ address }: Props) => {
         offSet={[60, 0]}
         content={
           <AccountDetailsContent>
-            {/* <AccountDetailButton
+            <AccountDetailButton
               backgroundTransparent
               iconLeft="qrcode"
               onClick={() => setAccountDetailsOpen(true)}
@@ -76,22 +76,20 @@ export const SideBarView = ({ address }: Props) => {
               onClick={() => openExplorerTab(address, 'contract', chainId)}
             >
               View on explorer
-            </AccountDetailButton> */}
+            </AccountDetailButton>
           </AccountDetailsContent>
         }
       >
         <AccountImageStyled address={address} connected={wallet.connected} />
       </AccountDetails>
-
-      <AccountLabel>My account</AccountLabel>
       <RowDiv>
         <InfoIcon onClick={() => setInfoModalOpen(true)}>i</InfoIcon>
         <AccountAddress address={address} />
       </RowDiv>
-      <DivList ref={ref as any}>
+      {/* <DivList ref={ref as any}>
         <AssetsList />
-      </DivList>
-      <AddTokenButton
+      </DivList> */}
+      {/* <AddTokenButton
         customIconLeft={
           <RoundedIcon>
             <FontAwesomeIcon icon={['fas', 'plus']} />
@@ -105,7 +103,7 @@ export const SideBarView = ({ address }: Props) => {
       </AddTokenButton>
       <PopIn isOpen={addTokenOpen} setIsOpen={setAddTokenOpen}>
         <AddTokenModal closeModal={() => setAddTokenOpen(false)} />
-      </PopIn>
+      </PopIn> */}
     </Wrapper>
   );
 };

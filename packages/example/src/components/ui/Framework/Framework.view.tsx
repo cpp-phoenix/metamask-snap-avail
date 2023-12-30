@@ -8,20 +8,13 @@ interface Props {
 }
 
 export const FrameworkView = ({ connected, children }: Props) => {
-  const [bannerOpen, setBannerOpen] = useState(true);
   return (
     <Wrapper>
       <ColMiddle>
         <MenuStyled connected={connected} />
         <Content>{children}</Content>
-        <Footer />
+        {/* <Footer /> */}
       </ColMiddle>
-      {bannerOpen && (
-        <Banner>
-          This is the Open Beta version of the dapp, updates are made regularly{' '}
-          <CloseIcon icon={'close'} onClick={() => setBannerOpen(false)} />
-        </Banner>
-      )}
     </Wrapper>
   );
 };

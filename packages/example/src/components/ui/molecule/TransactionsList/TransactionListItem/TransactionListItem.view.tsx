@@ -77,13 +77,7 @@ export const TransactionListItemView = ({ transaction }: Props) => {
       </Left>
       <Middle>{txnToFromLabel} </Middle>
       <Right>
-        {txnName === 'Send' && (
-          <AssetQuantity
-            currency={currencySymbol}
-            currencyValue={txnValue}
-            USDValue={txnUsdValue}
-          />
-        )}
+        {txnName === 'Send' && <AssetQuantity currency={currencySymbol} currencyValue={txnValue} />}
       </Right>
     </Wrapper>
   );

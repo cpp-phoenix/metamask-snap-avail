@@ -1,26 +1,25 @@
-import { Currency, Dollars, Size, Wrapper } from './AssetQuantity.style';
+import { Currency, Size, Wrapper } from './AssetQuantity.style';
 
 interface Props {
   currency?: string;
   currencyValue: string;
-  USDValue: string;
   centered?: boolean;
   size?: Size;
 }
 
 export const AssetQuantityView = ({
-  currency = 'ETH',
+  currency = 'AVL',
   currencyValue,
-  USDValue,
   centered,
   size = 'normal'
 }: Props) => {
   return (
     <Wrapper centered={centered}>
       <Currency size={size}>
-        {currencyValue} {currency}
+        {currencyValue}&nbsp;
+        {currency}
       </Currency>
-      {USDValue && <Dollars size={size}>{USDValue} USD</Dollars>}
+      {/* {USDValue && <Dollars size={size}>{USDValue} USD</Dollars>} */}
     </Wrapper>
   );
 };

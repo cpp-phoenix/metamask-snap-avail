@@ -13,6 +13,7 @@ interface ISize {
 export const Wrapper = styled.div<IWrapper>`
   display: flex;
   flex-direction: column;
+  padding-top: ${(props) => props.theme.spacing.base};
   text-align: ${(props) => (props.centered ? 'center' : 'inherit')};
 `;
 
@@ -31,6 +32,7 @@ export const Currency = styled.span<ISize>`
       : props.theme.typography.h1.lineHeight};
   font-weight: ${(props) => props.theme.typography.h1.fontWeight};
   font-family: ${(props) => props.theme.typography.h1.fontFamily};
+  color: ${(props) => props.theme.palette.grey.white};
 `;
 
 export const Dollars = styled.span<ISize>`

@@ -10,17 +10,12 @@ export const Wrapper = styled(Button).attrs((props) => ({
   },
   iconStyle: {
     fontSize: props.theme.typography.i1.fontSize,
-    color: props.theme.palette.grey.grey1
+    color: props.theme.palette.grey.white
   }
 }))`
   padding: 4px 5px;
   height: 25px;
-  color: ${(props) => props.theme.palette.grey.black};
+  color: ${(props) => props.theme.palette.grey.white};
   border-radius: 24px;
   border: 1px solid ${(props) => props.theme.palette.grey.grey3};
-
-  :hover {
-    background-color: ${(props) => props.theme.palette.grey.grey4};
-    border: none;
-  }
 `;

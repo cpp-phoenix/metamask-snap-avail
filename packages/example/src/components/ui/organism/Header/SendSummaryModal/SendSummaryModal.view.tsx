@@ -204,7 +204,6 @@ export const SendSummaryModalView = ({ address, amount, chainId, closeModal }: P
         <AssetQuantity
           currency={wallet.erc20TokenBalanceSelected.symbol}
           currencyValue={getMaxDecimalsReadable(wallet.erc20TokenBalanceSelected, amount)}
-          USDValue={amountUsdPrice}
           size="medium"
           centered
         />

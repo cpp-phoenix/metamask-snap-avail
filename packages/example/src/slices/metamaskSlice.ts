@@ -1,5 +1,5 @@
-import type { Dispatch, PropsWithChildren, Reducer } from 'react';
-import React, { createContext, useReducer } from 'react';
+import { createSlice } from '@reduxjs/toolkit';
+import { Network } from '@types';
 import type { MetamaskPolkadotSnap } from '@avail/metamask-polkadot-adapter/build/snap';
 import type {
   BlockInfo,
@@ -47,38 +47,23 @@ const initialState: MetamaskState = {
     api: null
   }
 };
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type MetamaskDispatch = { type: MetamaskActions; payload: any };
 
-export const MetaMaskContext = createContext<[MetamaskState, Dispatch<MetamaskDispatch>]>([
+export const metamaskSlice = createSlice({
+  name: 'metamask',
   initialState,
-  () => null
-]);
-
-export enum MetamaskActions {
-  SET_INSTALLED_STATUS
-}
-
-const reducer: Reducer<MetamaskState, MetamaskDispatch> = (state, action) => {
-  switch (action.type) {
-    case MetamaskActions.SET_INSTALLED_STATUS: {
-      return {
-        ...state,
-        polkadotSnap: action.payload as IPolkadotSnap
-      };
-    }
-    default: {
-      return state;
+  reducers: {
+    // setNetworks: (state, action) => {
+    //   state.items = action.payload;
+    // },
+    // setActiveNetwork: (state, action) => {
+    //   state.activeNetwork = action.payload;
+    // },
+    setData: (state, action) => {
+      state.polkadotSnap = action.payload;
     }
   }
-};
+});
 
-export const MetaMaskContextProvider = (
-  props: PropsWithChildren<Record<string, unknown>>
-): React.JSX.Element => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+export const { setData } = metamaskSlice.actions;
 
-  return (
-    <MetaMaskContext.Provider value={[state, dispatch]}>{props.children}</MetaMaskContext.Provider>
-  );
-};
+export default metamaskSlice.reducer;

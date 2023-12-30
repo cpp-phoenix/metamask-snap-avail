@@ -12,9 +12,9 @@ interface IAddTokenButton {
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => props.theme.palette.grey.white};
+  background-color: ${(props) => props.theme.palette.grey.grey6};
   min-width: 272px;
-  border-right: 1px solid ${(props) => props.theme.palette.grey.grey4};
+  border-right: 1px solid ${(props) => props.theme.palette.grey.grey5};
 `;
 
 export const AccountLabel = styled.h3`
@@ -73,21 +73,22 @@ export const AccountDetailsContent = styled.div`
   padding: 0px;
 `;
 
-// export const AccountDetailButton = styled(Button).attrs((props) => ({
-//   backgroundTransparent: true,
-//   fontSize: props.theme.typography.p2.fontSize,
-//   textStyle: {
-//     color: props.theme.palette.grey.black,
-//     fontWeight: props.theme.typography.p2.fontWeight,
-//     textTransform: 'initial'
-//   }
-// }))`
-//   padding: 0px;
-//   border-radius: 0px;
-//   :hover {
-//     background-color: ${(props) => props.theme.palette.grey.grey4};
-//   }
-// `;
+export const AccountDetailButton = styled(Button).attrs((props) => ({
+  backgroundTransparent: true,
+  fontSize: props.theme.typography.p2.fontSize,
+  textStyle: {
+    color: props.theme.palette.grey.black,
+    fontWeight: props.theme.typography.p2.fontWeight
+    // textTransform: 'initial'
+  }
+}))`
+  text-transform: 'inherit';
+  padding: 0px;
+  border-radius: 0px;
+  :hover {
+    background-color: ${(props) => props.theme.palette.grey.grey4};
+  }
+`;
 
 export const PopInStyled = styled(PopIn)`
   background-color: transparent;

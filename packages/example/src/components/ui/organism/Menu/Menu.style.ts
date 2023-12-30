@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding-top: 26px;
+  padding-top: 36px;
   padding-bottom: 26px;
   a {
     all: unset;
@@ -42,12 +42,12 @@ export const NetworkPill = styled(Button).attrs((props) => ({
   },
   iconStyle: {
     fontSize: props.theme.typography.i1.fontSize,
-    color: props.theme.palette.grey.grey1
+    color: props.theme.palette.grey.white
   }
 }))`
   padding: 8px 16px;
   height: 40px;
-  color: ${(props) => props.theme.palette.grey.grey1};
+  color: ${(props) => props.theme.palette.grey.white};
   border-radius: 80px;
   border: 1px solid ${(props) => props.theme.palette.grey.white};
   gap: ${(props) => props.theme.spacing.tiny2};

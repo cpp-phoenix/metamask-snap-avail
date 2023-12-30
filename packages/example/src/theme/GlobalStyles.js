@@ -6,7 +6,7 @@ import { theme } from './default';
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
-    background: ${theme.palette.grey.grey4};
+    background: ${theme.palette.grey.grey5};
     color: ${theme.palette.grey.black};
     font-family: ${theme.typography.p1.fontFamily} !important;
     font-weight: ${theme.typography.p1.fontWeight};

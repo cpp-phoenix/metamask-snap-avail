@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
+import metamaskSlice from 'slices/metamaskSlice';
 import walletReducer from '../slices/walletSlice';
 import networkReducer from '../slices/networkSlice';
 import modalSlice from '../slices/modalSlice';
@@ -29,7 +30,8 @@ const reducers = combineReducers({
   wallet: persistReducer(walletPersistConfig, walletReducer),
   networks: persistReducer(networkPersistConfig, networkReducer),
   modals: modalSlice,
-  UI: UIReducer
+  UI: UIReducer,
+  metamask: metamaskSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -1,4 +1,4 @@
-import logo from 'assets/images/starknet-logo.svg';
+import logo from 'assets/images/availlogo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { HTMLAttributes } from 'react';
 import { Menu } from '@headlessui/react';
@@ -60,7 +60,7 @@ export const MenuView = ({ connected, ...otherProps }: IProps) => {
   return (
     <Wrapper {...otherProps}>
       <Left>
-        <img src={logo} alt="logo" />
+        <img height="40px" src={logo} alt="logo" />
       </Left>
       <Right>
         <Menu as="div" style={{ display: 'inline-block', position: 'relative', textAlign: 'left' }}>
@@ -110,7 +110,7 @@ export const MenuView = ({ connected, ...otherProps }: IProps) => {
             </MenuSection>
           </MenuItems>
         </Menu>
-        <Menu as="div" style={{ display: 'inline-block', position: 'relative', textAlign: 'left' }}>
+        {/* <Menu as="div" style={{ display: 'inline-block', position: 'relative', textAlign: 'left' }}>
           <Menu.Button
             disabled={!connected}
             style={{
@@ -194,7 +194,7 @@ export const MenuView = ({ connected, ...otherProps }: IProps) => {
               </Menu.Item>
             </MenuSection>
           </MenuItems>
-        </Menu>
+        </Menu> */}
       </Right>
     </Wrapper>
   );

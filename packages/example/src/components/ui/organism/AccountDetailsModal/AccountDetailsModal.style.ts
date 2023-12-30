@@ -70,8 +70,10 @@ export const ButtonDiv = styled.div`
 `;
 
 export const ButtonStyled = styled(Button).attrs(() => ({
-  backgroundTransparent: true,
-  borderVisible: true
+  backgroundTransparent: false,
+  borderVisible: false
 }))`
+  color: ${(props) => props.theme.palette.grey.white};
+  background-color: ${(props) => props.theme.palette.secondary.main};
   width: 240px;
 `;
