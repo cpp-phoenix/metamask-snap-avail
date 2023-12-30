@@ -154,47 +154,6 @@ export const HeaderView = ({ address }: Props) => {
             </Menu.Button>
             <MenuItems>
               <MenuSection>
-                <Menu.Item disabled>
-                  <div style={{ padding: '8px 0px' }}>
-                    <FontAwesomeIcon
-                      icon="circle"
-                      color={theme.palette.success.main}
-                      style={{ fontSize: '12px', lineHeight: '12px', padding: '0px 10px' }}
-                    />
-                    <MenuItemText>Connected to Starknet Snap</MenuItemText>
-                  </div>
-                </Menu.Item>
-              </MenuSection>
-              <MenuDivider />
-              <MenuSection>
-                <Menu.Item>
-                  {({ active }) => (
-                    <div
-                      style={{
-                        padding: '8px 0px',
-                        background: active ? theme.palette.grey.grey4 : theme.palette.grey.white,
-                        cursor: 'pointer'
-                      }}
-                    >
-                      <FontAwesomeIcon
-                        icon="info-circle"
-                        color={theme.palette.grey.grey1}
-                        style={{
-                          fontSize: '12px',
-                          lineHeight: '12px',
-                          padding: '0px 10px'
-                        }}
-                      />
-                      <a
-                        href="https://consensys.net/blog/metamask/metamask-integrates-starkware-into-first-of-its-kind-zk-rollup-snap/"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <MenuItemText>About this snap</MenuItemText>
-                      </a>
-                    </div>
-                  )}
-                </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
                     <div

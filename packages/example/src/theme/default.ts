@@ -3,7 +3,7 @@ import { DefaultTheme } from 'styled-components';
 export const theme: DefaultTheme = {
   palette: {
     grey: {
-      black: '#292A6C', //Text primary
+      black: '#000000', //Text primary
       grey1: '#7F80A4', //Text secondary
       grey2: '#A9AAC2',
       grey3: '#D4D4E1',

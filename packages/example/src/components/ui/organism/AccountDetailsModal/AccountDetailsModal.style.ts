@@ -33,10 +33,11 @@ export const TitleDiv = styled.div`
   flex-direction: row;
   align-items: center;
   margin-bottom: 24px;
+  margin-left: 13px;
 `;
 
 export const Title = styled.div`
-  font-size: ${(props) => props.theme.typography.h3.fontSize};
+  font-size: ${(props) => props.theme.typography.h2.fontSize};
   font-weight: ${(props) => props.theme.typography.h3.fontSize};
   font-family: ${(props) => props.theme.typography.h3.fontFamily};
   margin-right: 13px;
@@ -50,7 +51,7 @@ export const Title = styled.div`
 // `;
 
 export const AddressQrCode = styled(QRCode).attrs(() => ({
-  size: 134
+  size: 150
 }))`
   margin-bottom: 24px;
 `;

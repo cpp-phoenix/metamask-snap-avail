@@ -1,5 +1,6 @@
 import { openExplorerTab } from 'utils/utils';
 import { useAppSelector } from 'hooks/redux';
+import { useAvailSnap } from 'services/metamask';
 import {
   AccountImageDiv,
   AccountImageStyled,
@@ -11,7 +12,6 @@ import {
   TitleDiv,
   Wrapper
 } from './AccountDetailsModal.style';
-// import { useStarkNetSnap } from 'services';
 
 interface Props {
   address: string;
@@ -19,7 +19,7 @@ interface Props {
 
 export const AccountDetailsModalView = ({ address }: Props) => {
   const networks = useAppSelector((state) => state.networks);
-  // const { getPrivateKeyFromAddress } = useStarkNetSnap();
+  const { getPrivateKeyFromAddress } = useAvailSnap();
   const chainId = networks?.items[networks.activeNetwork]?.chainId;
   return (
     <div>
@@ -38,9 +38,13 @@ export const AccountDetailsModalView = ({ address }: Props) => {
         <ButtonStyled onClick={() => openExplorerTab(address, 'contract', chainId)}>
           VIEW ON EXPLORER
         </ButtonStyled>
-        {/* <ButtonStyled backgroundTransparent borderVisible onClick={() => getPrivateKeyFromAddress(address, chainId)}>
+        <ButtonStyled
+          backgroundTransparent
+          borderVisible
+          onClick={() => getPrivateKeyFromAddress()}
+        >
           EXPORT PRIVATE KEY
-        </ButtonStyled> */}
+        </ButtonStyled>
       </ButtonDiv>
     </div>
   );

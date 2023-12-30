@@ -270,6 +270,13 @@ export const useAvailSnap = () => {
     }
   };
 
+  const getPrivateKeyFromAddress = async () => {
+    if (!metamaskState.polkadotSnap.snap) return;
+    const api = metamaskState.polkadotSnap.snap.getMetamaskSnapApi();
+    const privateKey = await api.exportSeed();
+    alert(privateKey);
+  };
+
   return {
     connectToSnap,
     getNetworks,
@@ -277,6 +284,7 @@ export const useAvailSnap = () => {
     satisfiesVersion: oldVersionDetected,
     getWalletData,
     initSnap,
-    checkConnection
+    checkConnection,
+    getPrivateKeyFromAddress
   };
 };

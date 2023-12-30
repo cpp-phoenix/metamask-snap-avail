@@ -7,7 +7,8 @@ export const Wrapper = styled.div`
   flex-direction: column;
   background-color: ${(props) => props.theme.palette.grey.white};
   width: ${(props) => props.theme.modal.base};
-  padding: ${(props) => props.theme.spacing.base};
+  padding-bottom: ${(props) => props.theme.spacing.xLarge};
+  padding-top: ${(props) => props.theme.spacing.large};
   border-radius: 8px;
   justify-content: center;
   align-items: center;
@@ -15,7 +16,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.div`
-  font-size: ${(props) => props.theme.typography.h3.fontSize};
+  font-size: ${(props) => props.theme.typography.h2.fontSize};
   font-weight: ${(props) => props.theme.typography.h3.fontWeight};
   font-family: ${(props) => props.theme.typography.h3.fontFamily};
 `;

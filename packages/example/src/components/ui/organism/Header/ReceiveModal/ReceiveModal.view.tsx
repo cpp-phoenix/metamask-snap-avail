@@ -9,7 +9,7 @@ export const ReceiveModalView = ({ address }: Props) => {
     <Wrapper>
       <Title>Receive</Title>
       <AddressQrCode value={address} />
-      <AddressCopy address={address} placement="top" />
+      {/* <AddressCopy address={address} placement="top" /> */}
     </Wrapper>
   );
 };

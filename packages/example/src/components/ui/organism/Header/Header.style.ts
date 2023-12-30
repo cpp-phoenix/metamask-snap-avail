@@ -50,15 +50,15 @@ export const Right = styled.div`
 export const MenuItems = styled(Menu.Items)`
   position: absolute;
   right: 0;
-  margin-top: 0.5rem;
   background: #ffffff;
   box-shadow: 0px 14px 24px -6px rgba(106, 115, 125, 0.2);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  padding: 8px 0px;
+  padding: 4px 0px;
   gap: 8px;
-  width: 280px;
+  width: 135px;
+  margin-right: 18px;
 `;
 
 export const MenuSection = styled.div`
@@ -105,7 +105,7 @@ export const RowDiv = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: ${(props) => props.theme.spacing.large};
-  margin-top: ${(props) => props.theme.spacing.small};
+  margin-top: ${(props) => props.theme.spacing.tiny2};
 `;
 
 export const InfoIcon = styled(RoundedIcon)`
@@ -121,7 +121,7 @@ export const Buttons = styled.div`
 `;
 
 export const HeaderButton = styled(Button)`
-  margin-right: ${(props) => props.theme.spacing.small};
+  margin-right: ${(props) => props.theme.spacing.base};
 `;
 
 export const SendButton = styled(Button)`
@@ -131,14 +131,14 @@ export const SendButton = styled(Button)`
 
 export const AccountDetailButton = styled(Button).attrs((props) => ({
   backgroundTransparent: true,
-  fontSize: props.theme.typography.p2.fontSize,
+  fontSize: props.theme.typography.c1.fontSize,
   textStyle: {
     color: props.theme.palette.grey.black,
-    fontWeight: props.theme.typography.p2.fontWeight
+    fontWeight: props.theme.typography.c1.fontWeight
     // textTransform: 'initial'
   }
 }))`
-  text-transform: 'inherit';
+  text-transform: 'initial';
   padding: 0px;
   border-radius: 0px;
   :hover {

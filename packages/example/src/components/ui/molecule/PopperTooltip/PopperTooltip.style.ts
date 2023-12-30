@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
 `;
 
 export const PopperContainer = styled.div<IDiv>`
+  margin-top: 7px;
   border-radius: ${(props) => props.theme.corner.small};
   background-color: ${(props) => props.theme.palette.grey.white};
   padding: ${(props) => props.theme.spacing.small};
