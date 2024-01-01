@@ -127,6 +127,20 @@ export const useAvailSnap = () => {
     ] as Network[];
   };
 
+  const switchNetwork = async (chainId: string) => {
+    dispatch(enableLoadingWithMessage('Switching Network...'));
+    console.log('data is: ', networkState);
+    if (metamaskState.hasMetaMask && !metamaskState.polkadotSnap.api) {
+      console.log('data is: ', networkState);
+      // if (networkName === network) return;
+      // await metamaskState.polkadotSnap.api.setConfiguration({ networkName: networkName });
+      return true;
+    } else {
+      dispatch(disableLoading());
+      return false;
+    }
+  };
+
   const getCurrentNetwork = async () => {
     return networkState.items[networkState.activeNetwork];
   };
@@ -285,6 +299,7 @@ export const useAvailSnap = () => {
     getWalletData,
     initSnap,
     checkConnection,
-    getPrivateKeyFromAddress
+    getPrivateKeyFromAddress,
+    switchNetwork
   };
 };

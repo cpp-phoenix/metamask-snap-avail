@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useContext } from 'react';
+import { useEffect } from 'react';
 import './App.css';
 import GlobalStyle from 'theme/GlobalStyles';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -16,8 +16,8 @@ import { ConnectInfoModal } from 'components/ui/organism/ConnectInfoModal';
 import 'toastr2/dist/toastr.min.css';
 import { NoMetamaskModal } from 'components/ui/organism/NoMetamaskModal';
 import { useHasMetamask } from 'hooks/useHasMetamask';
-import { MetamaskActions, MetaMaskContext, MetaMaskContextProvider } from 'context/metamask';
-import { initiatePolkadotSnap, isPolkadotSnapInstalled, useAvailSnap } from 'services/metamask';
+// import { useHasMetamaskFlask } from 'hooks/useHasMetamaskFlask';
+import { useAvailSnap } from 'services/metamask';
 import { MinVersionModal } from './components/ui/organism/MinVersionModal';
 
 library.add(fas, far);
@@ -29,12 +29,12 @@ function App(): React.JSX.Element {
   const { loader } = useAppSelector((state) => state.UI);
   const networks = useAppSelector((state) => state.networks);
   const { hasMetamask } = useHasMetamask();
+  // const { hasMetamaskFlask } = useHasMetamaskFlask();
 
   const address =
     accounts?.length > 0 ? (accounts[0] as unknown as string) : '0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 
   useEffect(() => {
-    console.log('It checks here first', hasMetamask);
     if (!provider) {
       return;
     }
@@ -49,7 +49,6 @@ function App(): React.JSX.Element {
 
   useEffect(() => {
     if (provider && networks.items.length > 0) {
-      console.log('or here', provider);
       const chainId = networks.items[networks.activeNetwork].chainId;
       getWalletData(chainId);
     }
@@ -61,29 +60,24 @@ function App(): React.JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <MetaMaskContextProvider>
-        <FrameworkView connected={connected}>
-          <PopIn isOpen={!connected && !loading} showClose={false}>
-            <NoMetamaskModal />
-          </PopIn>
-          <PopIn isOpen={minVersionModalVisible} showClose={false}>
-            <MinVersionModal />
-          </PopIn>
-          <PopIn isOpen={!loading && !!hasMetamask && !connected} showClose={false}>
-            <ConnectModal />
-          </PopIn>
-          <PopIn isOpen={infoModalVisible} showClose={false}>
-            <ConnectInfoModal address={address} />
-          </PopIn>
-          <Home address={address} />
-          <PopIn isOpen={loading}>
-            {loading && <LoadingBackdrop>{loader.loadingMessage}</LoadingBackdrop>}
-          </PopIn>
-        </FrameworkView>
-      </MetaMaskContextProvider>
-      {/* <MetaMaskContextProvider>
-        <Dashboard />
-      </MetaMaskContextProvider> */}
+      <FrameworkView connected={connected}>
+        <PopIn isOpen={!connected && !loading} showClose={false}>
+          <NoMetamaskModal />
+        </PopIn>
+        <PopIn isOpen={minVersionModalVisible} showClose={false}>
+          <MinVersionModal />
+        </PopIn>
+        <PopIn isOpen={!loading && !!hasMetamask && !connected} showClose={false}>
+          <ConnectModal />
+        </PopIn>
+        <PopIn isOpen={infoModalVisible} showClose={false}>
+          <ConnectInfoModal address={address} />
+        </PopIn>
+        <Home address={address} />
+        <PopIn isOpen={loading}>
+          {loading && <LoadingBackdrop>{loader.loadingMessage}</LoadingBackdrop>}
+        </PopIn>
+      </FrameworkView>
     </ThemeProvider>
   );
 }

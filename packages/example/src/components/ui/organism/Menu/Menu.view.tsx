@@ -13,6 +13,7 @@ import {
   clearAccounts
 } from 'slices/walletSlice';
 import { resetNetwork, setActiveNetwork } from 'slices/networkSlice';
+import { useAvailSnap } from 'services/metamask';
 import {
   Left,
   Right,
@@ -33,13 +34,13 @@ interface IProps extends HTMLAttributes<HTMLElement> {
 }
 
 export const MenuView = ({ connected, ...otherProps }: IProps) => {
-  // const { switchNetwork } = useStarkNetSnap();
+  const { switchNetwork } = useAvailSnap();
   const networks = useAppSelector((state) => state.networks);
   const dispatch = useAppDispatch();
 
   const changeNetwork = async (network: number, chainId: string) => {
-    // const result = await switchNetwork(chainId);
-    const result = '';
+    console.log('data is: ', network, chainId);
+    const result = await switchNetwork(chainId);
     if (result) {
       dispatch(clearAccounts());
       dispatch(setActiveNetwork(network));
@@ -110,91 +111,6 @@ export const MenuView = ({ connected, ...otherProps }: IProps) => {
             </MenuSection>
           </MenuItems>
         </Menu>
-        {/* <Menu as="div" style={{ display: 'inline-block', position: 'relative', textAlign: 'left' }}>
-          <Menu.Button
-            disabled={!connected}
-            style={{
-              cursor: 'pointer',
-              border: 'none',
-              background: 'transparent'
-            }}
-          >
-            <MenuIcon>
-              <FontAwesomeIcon icon={['fas', 'bars']} />
-              {connected ? (
-                <Badge style={{ background: theme.palette.success.main }}></Badge>
-              ) : (
-                <Badge
-                  style={{ background: theme.palette.grey.grey4, border: '1px solid #ffffff' }}
-                ></Badge>
-              )}
-            </MenuIcon>
-          </Menu.Button>
-          <MenuItems>
-            <MenuSection>
-              <Menu.Item disabled>
-                <div style={{ padding: '8px 0px' }}>
-                  <FontAwesomeIcon
-                    icon="circle"
-                    color={theme.palette.success.main}
-                    style={{ fontSize: '12px', lineHeight: '12px', padding: '0px 10px' }}
-                  />
-                  <MenuItemText>Connected to Starknet Snap</MenuItemText>
-                </div>
-              </Menu.Item>
-            </MenuSection>
-            <MenuDivider />
-            <MenuSection>
-              <Menu.Item>
-                {({ active }) => (
-                  <div
-                    style={{
-                      padding: '8px 0px',
-                      background: active ? theme.palette.grey.grey4 : theme.palette.grey.white,
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon="info-circle"
-                      color={theme.palette.grey.grey1}
-                      style={{
-                        fontSize: '12px',
-                        lineHeight: '12px',
-                        padding: '0px 10px'
-                      }}
-                    />
-                    <a
-                      href="https://consensys.net/blog/metamask/metamask-integrates-starkware-into-first-of-its-kind-zk-rollup-snap/"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <MenuItemText>About this snap</MenuItemText>
-                    </a>
-                  </div>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <div
-                    onClick={disconnect}
-                    style={{
-                      padding: '8px 0px',
-                      background: active ? theme.palette.grey.grey4 : theme.palette.grey.white,
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon="sign-out"
-                      color={theme.palette.grey.grey1}
-                      style={{ fontSize: '12px', lineHeight: '12px', padding: '0px 10px' }}
-                    />
-                    <MenuItemText>Disconnect</MenuItemText>
-                  </div>
-                )}
-              </Menu.Item>
-            </MenuSection>
-          </MenuItems>
-        </Menu> */}
       </Right>
     </Wrapper>
   );

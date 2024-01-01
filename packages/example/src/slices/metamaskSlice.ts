@@ -52,12 +52,6 @@ export const metamaskSlice = createSlice({
   name: 'metamask',
   initialState,
   reducers: {
-    // setNetworks: (state, action) => {
-    //   state.items = action.payload;
-    // },
-    // setActiveNetwork: (state, action) => {
-    //   state.activeNetwork = action.payload;
-    // },
     setData: (state, action) => {
       state.polkadotSnap = action.payload;
     }
