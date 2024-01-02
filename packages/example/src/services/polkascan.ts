@@ -5,7 +5,7 @@ export function getPolkascanTxUrl(txHash: string, network: string): string {
     case 'westend':
       return `https://westend.subscan.io/extrinsic/${txHash}`;
     case 'avail':
-      return `https://kate.avail.tools/#/explorer/${txHash}`;
+      return `https://goldberg.avail.tools/#/explorer/${txHash}`;
     default:
       return '';
   }
