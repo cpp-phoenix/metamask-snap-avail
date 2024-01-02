@@ -16,7 +16,6 @@ import { ConnectInfoModal } from 'components/ui/organism/ConnectInfoModal';
 import 'toastr2/dist/toastr.min.css';
 import { NoMetamaskModal } from 'components/ui/organism/NoMetamaskModal';
 import { useHasMetamask } from 'hooks/useHasMetamask';
-// import { useHasMetamaskFlask } from 'hooks/useHasMetamaskFlask';
 import { useAvailSnap } from 'services/metamask';
 import { MinVersionModal } from './components/ui/organism/MinVersionModal';
 
@@ -29,7 +28,6 @@ function App(): React.JSX.Element {
   const { loader } = useAppSelector((state) => state.UI);
   const networks = useAppSelector((state) => state.networks);
   const { hasMetamask } = useHasMetamask();
-  // const { hasMetamaskFlask } = useHasMetamaskFlask();
 
   const address =
     accounts?.length > 0 ? (accounts[0] as unknown as string) : '0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
@@ -39,6 +37,7 @@ function App(): React.JSX.Element {
       return;
     }
     if (connected) {
+      console.log('Are we here??');
       initSnap();
     }
     if (hasMetamask && !connected && !forceReconnect) {
@@ -50,7 +49,7 @@ function App(): React.JSX.Element {
   useEffect(() => {
     if (provider && networks.items.length > 0) {
       const chainId = networks.items[networks.activeNetwork].chainId;
-      getWalletData(chainId);
+      getWalletData(chainId, true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [networks.activeNetwork, provider]);

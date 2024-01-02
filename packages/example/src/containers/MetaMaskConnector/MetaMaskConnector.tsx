@@ -20,21 +20,22 @@ export const MetaMaskConnector = (): React.JSX.Element => {
   }, [dispatch]);
 
   const installSnap = useCallback(async (): Promise<void> => {
-    const installResult = await initiatePolkadotSnap();
-    if (!installResult.isSnapInstalled) {
-      dispatch({
-        payload: {
-          isInstalled: false,
-          message: 'Please accept snap installation prompt'
-        },
-        type: MetamaskActions.SET_INSTALLED_STATUS
-      });
-    } else {
-      dispatch({
-        payload: { isInstalled: true, snap: installResult.snap },
-        type: MetamaskActions.SET_INSTALLED_STATUS
-      });
-    }
+    // const installResult = await initiatePolkadotSnap();
+    const installResult = true;
+    // if (!installResult.isSnapInstalled) {
+    //   dispatch({
+    //     payload: {
+    //       isInstalled: false,
+    //       message: 'Please accept snap installation prompt'
+    //     },
+    //     type: MetamaskActions.SET_INSTALLED_STATUS
+    //   });
+    // } else {
+    //   dispatch({
+    //     payload: { isInstalled: true, snap: installResult.snap },
+    //     type: MetamaskActions.SET_INSTALLED_STATUS
+    //   });
+    // }
   }, [dispatch]);
 
   const handleClose = (event: React.SyntheticEvent | React.MouseEvent, reason?: string): void => {

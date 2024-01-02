@@ -34,6 +34,7 @@ In another terminal
 - `yarn start`
 
 ## Avail Snap Design
+
 ![](./design.png)
 [FIGMA Designs](https://www.figma.com/file/03bs8ccbT7nR1a8KTGTZJ6/Metamask-Avail-Snap-team-library?type=design&node-id=0%3A1&mode=design&t=5gQcjL32P2mcXtuv-1)
 

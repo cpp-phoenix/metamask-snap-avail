@@ -1,15 +1,14 @@
 {
   "enabled": true,
-  "extends": [
-    "config:base",
-    ":semanticCommitType(chore)"
+  "extends": ["config:base", ":semanticCommitType(chore)"],
+  "packageRules": [
+    {
+      "enabled": false,
+      "groupName": "everything",
+      "matchPackagePatterns": ["*"],
+      "separateMajorMinor": false
+    }
   ],
-  "packageRules": [{
-    "enabled": false,
-    "groupName": "everything",
-    "matchPackagePatterns": ["*"],
-    "separateMajorMinor": false
-  }],
   "rebaseWhen": "behind-base-branch",
   "vulnerabilityAlerts": {
     "enabled": true

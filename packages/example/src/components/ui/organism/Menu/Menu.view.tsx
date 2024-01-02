@@ -40,23 +40,15 @@ export const MenuView = ({ connected, ...otherProps }: IProps) => {
 
   const changeNetwork = async (network: number, chainId: string) => {
     console.log('data is: ', network, chainId);
-    const result = await switchNetwork(chainId);
+    let result = false;
+    if (networks.activeNetwork !== network) {
+      result = await switchNetwork(network, chainId);
+    }
     if (result) {
       dispatch(clearAccounts());
       dispatch(setActiveNetwork(network));
     }
   };
-  /*
-    There is no way to disconnect the snap from a dapp it must be done from MetaMask.
-    This function just clears the memory state and sets forceReconnect which forces the connection prompt.
-    TODO: This should maybe be replaced by a prompt informing the user how to disconnect from MetaMask for better security.
-   */
-  function disconnect() {
-    dispatch(setWalletConnection(false));
-    dispatch(setForceReconnect(true));
-    dispatch(resetWallet());
-    dispatch(resetNetwork());
-  }
 
   return (
     <Wrapper {...otherProps}>

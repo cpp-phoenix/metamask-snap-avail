@@ -17,6 +17,7 @@ import {
 } from 'slices/walletSlice';
 import { disableLoading, enableLoadingWithMessage } from 'slices/UISlice';
 import { setNetworks, setActiveNetwork } from 'slices/networkSlice';
+import type { SnapNetworks } from '@avail/metamask-polkadot-types';
 
 export function hasMetaMask(): boolean {
   if (!window.ethereum) {
@@ -62,12 +63,14 @@ export interface SnapInitializationResponse {
   snap?: MetamaskPolkadotSnap;
 }
 
-export async function initiatePolkadotSnap(): Promise<SnapInitializationResponse> {
+export async function initiatePolkadotSnap(
+  network: SnapNetworks
+): Promise<SnapInitializationResponse> {
   const snapId = process.env.REACT_APP_SNAP_ID ? process.env.REACT_APP_SNAP_ID : defaultSnapId;
 
   try {
     console.info('Attempting to connect to snap...');
-    const metamaskPolkadotSnap = await enablePolkadotSnap({ networkName: 'avail' }, snapId);
+    const metamaskPolkadotSnap = await enablePolkadotSnap({ networkName: network }, snapId);
     console.info('Snap installed!');
     return { isSnapInstalled: true, snap: metamaskPolkadotSnap };
   } catch (e) {
@@ -83,7 +86,7 @@ export const useAvailSnap = () => {
     (state) => state.wallet
   );
   const metamaskState = useAppSelector((state) => state.metamask);
-  const networkState = useAppSelector((state) => state.network);
+  const networkState = useAppSelector((state) => state.networks);
   const snapId = process.env.REACT_APP_SNAP_ID
     ? process.env.REACT_APP_SNAP_ID
     : 'local:http://localhost:8081/';
@@ -96,44 +99,56 @@ export const useAvailSnap = () => {
   };
 
   const connectToSnap = () => {
-    dispatch(enableLoadingWithMessage('Connecting...'));
-    provider
-      .request({
-        method: 'wallet_requestSnaps',
-        params: {
-          [snapId]: { version: snapVersion }
-        }
-      })
-      .then(() => {
-        dispatch(setWalletConnection(true));
-        dispatch(setForceReconnect(false));
-      })
-      .catch(() => {
-        dispatch(setWalletConnection(false));
-        dispatch(disableLoading());
-      });
+    dispatch(setWalletConnection(true));
+    dispatch(setForceReconnect(false));
+    // dispatch(enableLoadingWithMessage('Connecting...'));
+    // provider
+    //   .request({
+    //     method: 'wallet_requestSnaps',
+    //     params: {
+    //       [snapId]: { version: snapVersion }
+    //     }
+    //   })
+    //   .then(() => {
+    //     dispatch(setWalletConnection(true));
+    //     dispatch(setForceReconnect(false));
+    //   })
+    //   .catch(() => {
+    //     dispatch(setWalletConnection(false));
+    //     dispatch(disableLoading());
+    //   });
   };
 
   const getNetworks = async () => {
     return [
       {
-        name: 'Avail Mainnet',
+        name: 'avail',
         chainId: '1'
       },
       {
-        name: 'Goldberg Testnet',
+        name: 'polkadot',
         chainId: '2'
+      },
+      {
+        name: 'kusama',
+        chainId: '3'
+      },
+      {
+        name: 'westend',
+        chainId: '4'
       }
     ] as Network[];
   };
 
-  const switchNetwork = async (chainId: string) => {
+  const switchNetwork = async (network: number, chainId: string) => {
     dispatch(enableLoadingWithMessage('Switching Network...'));
-    console.log('data is: ', networkState);
-    if (metamaskState.hasMetaMask && !metamaskState.polkadotSnap.api) {
-      console.log('data is: ', networkState);
-      // if (networkName === network) return;
-      // await metamaskState.polkadotSnap.api.setConfiguration({ networkName: networkName });
+    if (metamaskState.hasMetaMask && metamaskState.polkadotSnap.isInstalled) {
+      console.log('before: ', metamaskState);
+      await metamaskState.polkadotSnap.api.setConfiguration({
+        networkName: networkState.items[network].name
+      });
+      console.log('after: ', metamaskState);
+      dispatch(disableLoading());
       return true;
     } else {
       dispatch(disableLoading());
@@ -157,11 +172,32 @@ export const useAvailSnap = () => {
     return false;
   };
 
-  const getWalletData = async (chainId: string, networks?: Network[]) => {
+  const getWalletData = async (
+    networkId: number,
+    updateAccounts: boolean,
+    networks?: Network[]
+  ) => {
     if (!loader.isLoading && !networks) {
       dispatch(enableLoadingWithMessage('Getting network data ...'));
     }
-
+    console.log(metamaskState);
+    if (updateAccounts) {
+      dispatch(
+        setData({
+          isInstalled: true,
+          snap: metamaskState.polkadotSnap.snap,
+          address: await metamaskState.polkadotSnap.snap?.getMetamaskSnapApi().getAddress(),
+          publicKey: await metamaskState.polkadotSnap.snap?.getMetamaskSnapApi().getPublicKey(),
+          balance: await metamaskState.polkadotSnap.snap?.getMetamaskSnapApi().getBalance(),
+          latestBlock: await metamaskState.polkadotSnap.snap?.getMetamaskSnapApi().getLatestBlock(),
+          transactions: await metamaskState.polkadotSnap.snap
+            ?.getMetamaskSnapApi()
+            .getAllTransactions(),
+          api: metamaskState.polkadotSnap.snap?.getMetamaskSnapApi()
+        })
+      );
+    }
+    console.log(metamaskState);
     const acc = [
       {
         address: metamaskState.polkadotSnap.address,
@@ -170,28 +206,7 @@ export const useAvailSnap = () => {
     ] as Account[];
     console.log('check account: ', metamaskState.polkadotSnap.address);
     console.log('check account: ', metamaskState.polkadotSnap.publicKey);
-    // const tokens = await getTokens(chainId);
-    // let acc: Account[] | Account = await recoverAccounts(chainId);
-    // if (!acc || acc.length === 0 || !acc[0].publicKey) {
-    //   acc = await addAccount(chainId);
-    // }
-    // const tokenBalances = await Promise.all(
-    //   tokens.map(async (token) => {
-    //     const accountAddr = Array.isArray(acc) ? acc[0].address : acc.address;
-    //     return await getTokenBalance(token.address, accountAddr, chainId);
-    //   })
-    // );
 
-    // const tokenUSDPrices = await Promise.all(
-    //   tokens.map(async (token) => {
-    //     // return await getAssetPriceUSD(token);
-    //     return 0;
-    //   })
-    // );
-
-    // const tokensWithBalances = tokens.map((token, index): Erc20TokenBalance => {
-    //   return addMissingPropertiesToToken(token, tokenBalances[index], tokenUSDPrices[index]);
-    // });
     if (networks) {
       dispatch(setNetworks(networks));
     }
@@ -202,8 +217,6 @@ export const useAvailSnap = () => {
       setErc20TokenBalanceSelected({
         amount: metamaskState.polkadotSnap.balance
       } as Erc20TokenBalance);
-    }
-    if (!Array.isArray(acc)) {
       dispatch(setInfoModalVisible(true));
     }
     dispatch(disableLoading());
@@ -218,7 +231,11 @@ export const useAvailSnap = () => {
     if (!loader.isLoading) {
       dispatch(enableLoadingWithMessage('Initializing wallet ...'));
     }
-    const installResult = await initiatePolkadotSnap();
+    const nets = await getNetworks();
+    if (nets.length === 0) {
+      return;
+    }
+    const installResult = await initiatePolkadotSnap(nets[0].name);
     if (!installResult.isSnapInstalled) {
       dispatch(
         setData({
@@ -227,10 +244,8 @@ export const useAvailSnap = () => {
         })
       );
     } else {
-      const isInstalled = await isPolkadotSnapInstalled();
-      console.log('is it installed Schi', isInstalled);
-      // const api = installResult.snap?.getMetamaskSnapApi();
-      // const addressData = await installResult.snap?.getMetamaskSnapApi().getAddress();
+      // const isInstalled = await isPolkadotSnapInstalled();
+      // console.log('is it installed Schi', isInstalled);
       dispatch(
         setData({
           isInstalled: true,
@@ -244,15 +259,11 @@ export const useAvailSnap = () => {
         })
       );
       try {
-        const nets = await getNetworks();
-        if (nets.length === 0) {
-          return;
-        }
         const net = { chainId: '1' };
         const idx = nets.findIndex((e) => e.chainId === net.chainId);
         dispatch(setActiveNetwork(idx));
         const chainId = net.chainId;
-        await getWalletData(chainId, nets);
+        await getWalletData(0, false, nets);
       } catch (err: any) {
         if (err.code && err.code === 4100) {
           const toastr = new Toastr();

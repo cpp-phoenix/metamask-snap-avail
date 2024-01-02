@@ -27,8 +27,11 @@ export const openExplorerTab = (address: string, type = 'contract', chainId = '1
     case '2':
       explorerUrl = STARKNET_TESTNET_EXPLORER;
       break;
-    case SEPOLIA_CHAINID:
+    case '3':
       explorerUrl = STARKNET_SEPOLIA_TESTNET_EXPLORER;
+      break;
+    case '4':
+      explorerUrl = STARKNET_TESTNET_EXPLORER;
       break;
   }
   window.open(explorerUrl + type + '/' + address, '_blank')?.focus();
