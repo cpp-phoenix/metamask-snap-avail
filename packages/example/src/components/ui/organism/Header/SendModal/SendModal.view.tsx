@@ -89,18 +89,19 @@ export const SendModalView = ({ closeModal }: Props) => {
       if (fields.address && fields.amount && metamask.polkadotSnap.api) {
         const amountBN = ethers.utils.parseUnits(fields.amount, wallet.tokenBalance.decimals);
         const txPayload = await metamask.polkadotSnap.api.generateTransactionPayload(
-          amountBN.toString(),
+          fields.amount,
           fields.address
         );
         const signedTx = await metamask.polkadotSnap.api.signPayloadJSON(txPayload.payload);
         const tx = await metamask.polkadotSnap.api.send(signedTx, txPayload);
         toastr.success(`Transaction: ${JSON.stringify(tx, null, 2)}`);
-        closeModal;
       } else {
         toastr.error('Please fill recipient and amount fields.');
       }
     } catch (e) {
       toastr.error('Error while sending the transaction');
+    } finally {
+      closeModal;
     }
   };
 
