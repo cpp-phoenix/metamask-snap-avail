@@ -38,15 +38,15 @@ export const TransactionListItemView = ({ transaction }: Props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const foundToken = wallet.erc20TokenBalances.find((token: any) =>
-        ethers.BigNumber.from(token.address).eq(ethers.BigNumber.from(transaction.contractAddress))
-      );
-      if (foundToken) {
-        const txnValues = getTxnValues(transaction, foundToken.decimals, foundToken.usdPrice);
-        setTxnValue(getHumanReadableAmount(foundToken, txnValues.txnValue));
-        setTxnUsdValue(txnValues.txnUsdValue);
-        setCurrencySymbol(foundToken.symbol);
-      }
+      // const foundToken = wallet.erc20TokenBalances.find((token: any) =>
+      //   ethers.BigNumber.from(token.address).eq(ethers.BigNumber.from(transaction.contractAddress))
+      // );
+      // if (foundToken) {
+      //   const txnValues = getTxnValues(transaction, foundToken.decimals, foundToken.usdPrice);
+      //   setTxnValue(getHumanReadableAmount(txnValues.txnValue));
+      //   setTxnUsdValue(txnValues.txnUsdValue);
+      //   setCurrencySymbol(foundToken.symbol);
+      // }
     };
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps

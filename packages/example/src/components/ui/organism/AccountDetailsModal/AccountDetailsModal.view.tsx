@@ -38,13 +38,13 @@ export const AccountDetailsModalView = ({ address }: Props) => {
         <ButtonStyled onClick={() => openExplorerTab(address, 'contract', chainId)}>
           VIEW ON EXPLORER
         </ButtonStyled>
-        <ButtonStyled
+        {/* <ButtonStyled
           backgroundTransparent
           borderVisible
           onClick={() => getPrivateKeyFromAddress()}
         >
           EXPORT PRIVATE KEY
-        </ButtonStyled>
+        </ButtonStyled> */}
       </ButtonDiv>
     </div>
   );

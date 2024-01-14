@@ -67,7 +67,7 @@ export const MenuView = ({ connected, ...otherProps }: IProps) => {
           >
             <NetworkPill iconRight="angle-down" backgroundTransparent>
               {networks.items[networks.activeNetwork] ? (
-                networks.items[networks.activeNetwork].name
+                networks.items[networks.activeNetwork].displayName
               ) : (
                 <Skeleton variant="text" width={100} height={16} />
               )}
@@ -88,7 +88,7 @@ export const MenuView = ({ connected, ...otherProps }: IProps) => {
                     <Radio
                       checked={Number(networks.activeNetwork) === index}
                       name="radio-buttons"
-                      inputProps={{ 'aria-label': network.name }}
+                      inputProps={{ 'aria-label': network.displayName }}
                       sx={{
                         color: theme.palette.grey.grey1,
                         '&.Mui-checked': {
@@ -96,7 +96,7 @@ export const MenuView = ({ connected, ...otherProps }: IProps) => {
                         }
                       }}
                     />
-                    <MenuItemText>{network.name}</MenuItemText>
+                    <MenuItemText>{network.displayName}</MenuItemText>
                   </NetworkMenuItem>
                 </Menu.Item>
               ))}

@@ -31,19 +31,15 @@ export const TransactionsListView = ({ transactions }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wallet.transactions]);
 
-  useEffect(() => {
-    const chain = networks.items[networks.activeNetwork]?.chainId;
-    const address = wallet.accounts?.[0] as unknown as string;
-    if (chain && address) {
-      clearTimeout(timeoutHandle.current); // cancel the timeout that was in-flight
-      // getTransactions(address, wallet.erc20TokenBalanceSelected.address, 10, 10, chain);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    wallet.erc20TokenBalanceSelected.address,
-    wallet.erc20TokenBalanceSelected.chainId,
-    wallet.accounts?.[0]
-  ]);
+  // useEffect(() => {
+  //   const chain = networks.items[networks.activeNetwork]?.chainId;
+  //   const address = wallet.accounts?.[0] as unknown as string;
+  //   if (chain && address) {
+  //     clearTimeout(timeoutHandle.current); // cancel the timeout that was in-flight
+  //     // getTransactions(address, wallet.erc20TokenBalanceSelected.address, 10, 10, chain);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [wallet.tokenBalance.address, wallet.tokenBalance.chainId, wallet.accounts?.[0]]);
 
   return (
     <Wrapper<FC<IListProps<Transaction>>>

@@ -38,7 +38,7 @@ export const openExplorerTab = (address: string, type = 'contract', chainId = '1
 };
 
 export const isValidAddress = (toCheck: string) => {
-  return /^0x[a-fA-F0-9]{63,64}$/.test(toCheck);
+  return /^[a-zA-Z0-9]{47,48}$/.test(toCheck);
 };
 
 export const addMissingPropertiesToToken = (
@@ -48,28 +48,32 @@ export const addMissingPropertiesToToken = (
 ): Erc20TokenBalance => {
   return {
     ...token,
-    amount: ethers.BigNumber.from(balance ? balance : '0x0'),
-    usdPrice: usdPrice
+    amount: ethers.BigNumber.from(balance ? balance : '0x0')
   };
 };
 
-export const getHumanReadableAmount = (asset: Erc20TokenBalance, assetAmount?: string) => {
-  const amountStr = assetAmount
-    ? assetAmount
-    : ethers.utils.formatUnits(asset.amount, asset.decimals);
-  const indexDecimal = amountStr.indexOf('.');
-  const integerPart = amountStr.substring(0, indexDecimal);
-  let decimalPart = amountStr.substring(indexDecimal + 1, indexDecimal + 5 - integerPart.length);
-  if (integerPart === '0') {
-    decimalPart = amountStr.substring(indexDecimal + 1);
-  }
-  const decimalPartArray = decimalPart.split('');
-  const firstNonZeroIndex = decimalPartArray.findIndex((char) => char !== '0');
-  if (firstNonZeroIndex === -1) {
-    return integerPart;
-  }
+export const getHumanReadableAmount = (asset: Erc20TokenBalance) => {
+  // const amountStr = assetAmount
+  //   ? assetAmount
+  //   : ethers.utils.formatUnits(asset.amount, asset.decimals);
+  if (asset.amount > 0) {
+    const amountStr = ethers.utils.formatUnits(asset.amount, asset.decimals);
+    const indexDecimal = amountStr.indexOf('.');
+    const integerPart = amountStr.substring(0, indexDecimal);
+    let decimalPart = amountStr.substring(indexDecimal + 1, indexDecimal + 5 - integerPart.length);
+    if (integerPart === '0') {
+      decimalPart = amountStr.substring(indexDecimal + 1);
+    }
+    const decimalPartArray = decimalPart.split('');
+    const firstNonZeroIndex = decimalPartArray.findIndex((char) => char !== '0');
+    if (firstNonZeroIndex === -1) {
+      return integerPart;
+    }
 
-  return amountStr.substring(0, indexDecimal + firstNonZeroIndex + 3);
+    return amountStr.substring(0, indexDecimal + firstNonZeroIndex + 3);
+  } else {
+    return '0';
+  }
 };
 
 export const getMaxDecimalsReadable = (asset: Erc20TokenBalance, assetAmount?: string) => {
@@ -90,15 +94,15 @@ export const getMaxDecimalsReadable = (asset: Erc20TokenBalance, assetAmount?: s
 };
 
 export const getAmountPrice = (asset: Erc20TokenBalance, assetAmount: number, usdMode: boolean) => {
-  if (asset.usdPrice) {
-    if (!usdMode) {
-      const result = asset.usdPrice * assetAmount;
-      return result.toFixed(2).toString();
-    } else {
-      const result = assetAmount / asset.usdPrice;
-      return result.toFixed(getMaxDecimals(asset)).toString();
-    }
-  }
+  // if (asset.usdPrice) {
+  //   if (!usdMode) {
+  //     const result = asset.usdPrice * assetAmount;
+  //     return result.toFixed(2).toString();
+  //   } else {
+  //     const result = assetAmount / asset.usdPrice;
+  //     return result.toFixed(getMaxDecimals(asset)).toString();
+  //   }
+  // }
   return '';
 };
 

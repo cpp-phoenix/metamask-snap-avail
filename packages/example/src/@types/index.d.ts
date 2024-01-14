@@ -8,12 +8,16 @@ declare module '@avail/metamask-polkadot-adapter' {
   ): void;
 }
 
-export type Network = Pick<Types.Network, 'name' | 'chainId' | 'baseUrl' | 'nodeUrl'>;
+export type Network = Pick<
+  Types.Network,
+  'name' | 'chainId' | 'baseUrl' | 'nodeUrl' | 'displayName'
+>;
 export type Account = Pick<Types.AccContract, 'address' | 'publicKey'>;
 
-export interface Erc20TokenBalance extends Erc20Token {
+export interface Erc20TokenBalance {
   amount: BigNumber;
-  usdPrice?: number;
+  symbol: string;
+  decimals: number;
 }
 export type TransactionStatusOptions =
   | 'Received'

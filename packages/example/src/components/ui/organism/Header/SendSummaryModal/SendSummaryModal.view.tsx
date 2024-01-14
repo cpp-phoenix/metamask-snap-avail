@@ -9,7 +9,6 @@ import { AssetQuantity } from 'components/ui/molecule/AssetQuantity';
 import { PopperTooltip } from 'components/ui/molecule/PopperTooltip';
 import { useAppSelector } from 'hooks/redux';
 import { useEffect, useState } from 'react';
-// import { useStarkNetSnap } from 'services';
 import { ethers } from 'ethers';
 import Toastr from 'toastr2';
 import {
@@ -67,7 +66,7 @@ export const SendSummaryModalView = ({ address, amount, chainId, closeModal }: P
       if (wallet.accounts) {
         setGasFeesError(false);
         setEstimatingGas(true);
-        const amountBN = ethers.utils.parseUnits(amount, wallet.erc20TokenBalanceSelected.decimals);
+        const amountBN = ethers.utils.parseUnits(amount, wallet.tokenBalance.decimals);
         const callData = address + ',' + amountBN.toString() + ',0';
         // estimateFees(
         //   wallet.erc20TokenBalanceSelected.address,
@@ -96,32 +95,32 @@ export const SendSummaryModalView = ({ address, amount, chainId, closeModal }: P
   useEffect(() => {
     if (gasFees?.suggestedMaxFee) {
       //We assume the first token for the user will always be ETH
-      const ethToken = wallet.erc20TokenBalances[0];
+      const ethToken = wallet.tokenBalance;
       const gasFeesBN = ethers.utils.parseUnits(gasFees.suggestedMaxFee, gasFees.unit);
-      let totalToCheck = gasFeesBN;
+      const totalToCheck = gasFeesBN;
       const gasFeesStr = ethers.utils.formatUnits(gasFeesBN, ethToken.decimals);
       const gasFeesFloat = parseFloat(gasFeesStr);
       setGasFeesAmount(getMaxDecimalsReadable(ethToken, gasFeesStr));
-      if (ethToken.usdPrice) {
-        setGasFeesAmountUSD(getAmountPrice(ethToken, gasFeesFloat, false));
-      }
-      const amountBN = ethers.utils.parseUnits(amount, wallet.erc20TokenBalanceSelected.decimals);
-      if (wallet.erc20TokenBalanceSelected.address === ethToken.address) {
-        //We add the fees with the amount if the current token is ETH
-        const totalAmountBN = gasFeesBN.add(amountBN);
-        totalToCheck = totalAmountBN;
-        const totalAmount = ethers.utils.formatUnits(totalAmountBN, ethToken.decimals);
-        setTotalAmount(getMaxDecimalsReadable(ethToken, totalAmount));
-        const totalAmountFloat = parseFloat(totalAmount);
-        if (ethToken.usdPrice) {
-          setTotalAmountUSD(getAmountPrice(ethToken, totalAmountFloat, false));
-        }
-      } else if (amountUsdPrice) {
-        const amountGasFeeUSDFloat = parseFloat(getAmountPrice(ethToken, gasFeesFloat, false));
-        const amountUSDFloat = parseFloat(amountUsdPrice);
-        const totalUSDAmount = amountUSDFloat + amountGasFeeUSDFloat;
-        setTotalAmountUSD(totalUSDAmount.toFixed(2));
-      }
+      // if (ethToken.usdPrice) {
+      //   setGasFeesAmountUSD(getAmountPrice(ethToken, gasFeesFloat, false));
+      // }
+      const amountBN = ethers.utils.parseUnits(amount, wallet.tokenBalance.decimals);
+      // if (wallet.tokenBalance.address === ethToken.address) {
+      //   //We add the fees with the amount if the current token is ETH
+      //   const totalAmountBN = gasFeesBN.add(amountBN);
+      //   totalToCheck = totalAmountBN;
+      //   const totalAmount = ethers.utils.formatUnits(totalAmountBN, ethToken.decimals);
+      //   setTotalAmount(getMaxDecimalsReadable(ethToken, totalAmount));
+      //   const totalAmountFloat = parseFloat(totalAmount);
+      //   // if (ethToken.usdPrice) {
+      //   //   setTotalAmountUSD(getAmountPrice(ethToken, totalAmountFloat, false));
+      //   // }
+      // } else if (amountUsdPrice) {
+      //   const amountGasFeeUSDFloat = parseFloat(getAmountPrice(ethToken, gasFeesFloat, false));
+      //   const amountUSDFloat = parseFloat(amountUsdPrice);
+      //   const totalUSDAmount = amountUSDFloat + amountGasFeeUSDFloat;
+      //   setTotalAmountUSD(totalUSDAmount.toFixed(2));
+      // }
       //Check if total amount exceeds or gasFees exceeds ETH balance
       if (totalToCheck.gt(ethToken.amount)) {
         setTotalExceedsBalance(true);
@@ -133,13 +132,13 @@ export const SendSummaryModalView = ({ address, amount, chainId, closeModal }: P
 
   useEffect(() => {
     const amountFloat = parseFloat(amount);
-    wallet.erc20TokenBalanceSelected.usdPrice &&
-      setAmountUsdPrice(getAmountPrice(wallet.erc20TokenBalanceSelected, amountFloat, false));
-  }, [amount, wallet.erc20TokenBalanceSelected]);
+    // wallet.tokenBalance.usdPrice &&
+    //   setAmountUsdPrice(getAmountPrice(wallet.tokenBalance, amountFloat, false));
+  }, [amount, wallet.tokenBalance]);
 
   const handleConfirmClick = () => {
     if (wallet.accounts) {
-      const amountBN = ethers.utils.parseUnits(amount, wallet.erc20TokenBalanceSelected.decimals);
+      const amountBN = ethers.utils.parseUnits(amount, wallet.tokenBalance.decimals);
       const callData = address + ',' + amountBN.toString() + ',0';
       // sendTransaction(
       //   wallet.erc20TokenBalanceSelected.address,
@@ -176,21 +175,22 @@ export const SendSummaryModalView = ({ address, amount, chainId, closeModal }: P
   };
 
   const totalAmountDisplay = () => {
-    if (wallet.erc20TokenBalances.length > 0) {
-      if (wallet.erc20TokenBalanceSelected.address === wallet.erc20TokenBalances[0].address) {
-        //ETH selected
-        return totalAmount + ' ETH';
-      } else {
-        return (
-          getHumanReadableAmount(wallet.erc20TokenBalanceSelected, amount) +
-          ' ' +
-          wallet.erc20TokenBalanceSelected.symbol +
-          ' + ' +
-          gasFeesAmount +
-          ' ETH'
-        );
-      }
-    }
+    // if (wallet.erc20TokenBalances.length > 0) {
+    //   if (wallet.erc20TokenBalanceSelected.address === wallet.erc20TokenBalances[0].address) {
+    //     //ETH selected
+    //     return totalAmount + ' ETH';
+    //   } else {
+    //     return (
+    //       getHumanReadableAmount(amount) +
+    //       ' ' +
+    //       wallet.erc20TokenBalanceSelected.symbol +
+    //       ' + ' +
+    //       gasFeesAmount +
+    //       ' ETH'
+    //     );
+    //   }
+    // }
+    return '0';
   };
 
   return (
@@ -202,8 +202,8 @@ export const SendSummaryModalView = ({ address, amount, chainId, closeModal }: P
         <ToDiv>To</ToDiv>
         <AddressDiv>{shortenAddress(address)}</AddressDiv>
         <AssetQuantity
-          currency={wallet.erc20TokenBalanceSelected.symbol}
-          currencyValue={getMaxDecimalsReadable(wallet.erc20TokenBalanceSelected, amount)}
+          currency={wallet.tokenBalance.symbol}
+          currencyValue={getMaxDecimalsReadable(wallet.tokenBalance, amount)}
           size="medium"
           centered
         />

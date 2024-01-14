@@ -37,7 +37,6 @@ function App(): React.JSX.Element {
       return;
     }
     if (connected) {
-      console.log('Are we here??');
       initSnap();
     }
     if (hasMetamask && !connected && !forceReconnect) {

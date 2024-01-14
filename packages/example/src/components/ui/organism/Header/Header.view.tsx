@@ -13,6 +13,7 @@ import { TOKEN_BALANCE_REFRESH_FREQUENCY } from 'utils/constants';
 import {
   setWalletConnection,
   setForceReconnect,
+  setErc20TokenBalanceSelected,
   resetWallet,
   clearAccounts
 } from 'slices/walletSlice';
@@ -43,7 +44,6 @@ import {
 } from './Header.style';
 import { ReceiveModal } from './ReceiveModal';
 import { SendModal } from './SendModal';
-// import { useStarkNetSnap } from 'services';
 
 interface Props {
   address: string;
@@ -55,23 +55,30 @@ export const HeaderView = ({ address }: Props) => {
   const networks = useAppSelector((state) => state.networks);
   const chainId = networks?.items[networks.activeNetwork]?.chainId;
   const wallet = useAppSelector((state) => state.wallet);
+  const metamaskState = useAppSelector((state) => state.metamask);
   const [accountDetailsOpen, setAccountDetailsOpen] = useState(false);
   const [infoModalOpen, setInfoModalOpen] = useState(false);
-  // const { updateTokenBalance } = useStarkNetSnap();
   const timeoutHandle = useRef(setTimeout(() => {}));
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const chain = networks.items[networks.activeNetwork]?.chainId;
     if (chain && address) {
-      clearTimeout(timeoutHandle.current); // cancel the timeout that was in-flight
-      timeoutHandle.current = setTimeout(async () => {
-        // await updateTokenBalance(wallet.erc20TokenBalanceSelected.address, address, chain);
-      }, TOKEN_BALANCE_REFRESH_FREQUENCY);
-      return () => clearTimeout(timeoutHandle.current);
+      const interval = setInterval(async () => {
+        if (metamaskState?.polkadotSnap?.api) {
+          const newBalance = await metamaskState?.polkadotSnap?.api?.getBalance();
+          dispatch(
+            setErc20TokenBalanceSelected({
+              ...wallet.tokenBalance,
+              amount: newBalance
+            })
+          );
+        }
+      }, TOKEN_BALANCE_REFRESH_FREQUENCY); // every 60 seconds
+      return () => clearInterval(interval);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wallet.erc20TokenBalanceSelected]);
+  }, [networks.activeNetwork, wallet.tokenBalance, setErc20TokenBalanceSelected]);
 
   const handleSendClick = () => {
     setSendOpen(true);
@@ -121,8 +128,8 @@ export const HeaderView = ({ address }: Props) => {
           </AccountDetails>
         </Left>
         <AssetQuantity
-          // currencyValue={getHumanReadableAmount(wallet.erc20TokenBalanceSelected)}
-          currencyValue="2.0"
+          currencyValue={getHumanReadableAmount(wallet.tokenBalance)}
+          // currencyValue={balance}
           currency="AVL"
           size="big"
           centered

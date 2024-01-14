@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { AmountInput } from 'components/ui/molecule/AmountInput';
 import { useAppSelector } from 'hooks/redux';
 import { ethers } from 'ethers';
+import Toastr from 'toastr2';
 import { AddressInput } from 'components/ui/molecule/AddressInput';
 import { isValidAddress } from 'utils/utils';
 import { SendSummaryModal } from '../SendSummaryModal';
@@ -25,6 +26,7 @@ interface Props {
 export const SendModalView = ({ closeModal }: Props) => {
   const networks = useAppSelector((state) => state.networks);
   const wallet = useAppSelector((state) => state.wallet);
+  const metamask = useAppSelector((state) => state.metamask);
   const [summaryModalOpen, setSummaryModalOpen] = useState(false);
   const [fields, setFields] = useState({
     amount: '',
@@ -32,6 +34,12 @@ export const SendModalView = ({ closeModal }: Props) => {
     chainId: networks.items.length > 0 ? networks.items[networks.activeNetwork].chainId : ''
   });
   const [errors, setErrors] = useState({ amount: '', address: '' });
+
+  const toastr = new Toastr({
+    closeDuration: 10000000,
+    showDuration: 1000000000,
+    positionClass: 'toast-top-center'
+  });
 
   const handleChange = (fieldName: string, fieldValue: string) => {
     //Check if input amount does not exceed user balance
@@ -42,11 +50,8 @@ export const SendModalView = ({ closeModal }: Props) => {
     switch (fieldName) {
       case 'amount':
         if (fieldValue !== '' && fieldValue !== '.') {
-          const inputAmount = ethers.utils.parseUnits(
-            fieldValue,
-            wallet.erc20TokenBalanceSelected.decimals
-          );
-          const userBalance = wallet.erc20TokenBalanceSelected.amount;
+          const inputAmount = ethers.utils.parseUnits(fieldValue, wallet.tokenBalance.decimals);
+          const userBalance = wallet.tokenBalance.amount;
           if (inputAmount.gt(userBalance)) {
             setErrors((prevErrors) => ({
               ...prevErrors,
@@ -79,6 +84,26 @@ export const SendModalView = ({ closeModal }: Props) => {
     );
   };
 
+  const transferTokens = async () => {
+    try {
+      if (fields.address && fields.amount && metamask.polkadotSnap.api) {
+        const amountBN = ethers.utils.parseUnits(fields.amount, wallet.tokenBalance.decimals);
+        const txPayload = await metamask.polkadotSnap.api.generateTransactionPayload(
+          amountBN.toString(),
+          fields.address
+        );
+        const signedTx = await metamask.polkadotSnap.api.signPayloadJSON(txPayload.payload);
+        const tx = await metamask.polkadotSnap.api.send(signedTx, txPayload);
+        toastr.success(`Transaction: ${JSON.stringify(tx, null, 2)}`);
+        closeModal;
+      } else {
+        toastr.error('Please fill recipient and amount fields.');
+      }
+    } catch (e) {
+      toastr.error('Error while sending the transaction');
+    }
+  };
+
   return (
     <>
       {!summaryModalOpen && (
@@ -89,7 +114,7 @@ export const SendModalView = ({ closeModal }: Props) => {
             </Header>
             <Network>
               <Normal>Network</Normal>
-              <Bold>{networks.items[networks.activeNetwork].name}</Bold>
+              <Bold>{networks.items[networks.activeNetwork].displayName}</Bold>
             </Network>
             <AddressInput
               label="To"
@@ -99,7 +124,7 @@ export const SendModalView = ({ closeModal }: Props) => {
             <SeparatorSmall />
             <MessageAlert
               variant="info"
-              text="Please only enter a valid Starknet address. Sending funds to a different network might result in permanent loss."
+              text="Please only enter a valid Avail address. Sending funds to a different network might result in permanent loss."
             />
             <Separator />
             <AmountInput
@@ -107,15 +132,15 @@ export const SendModalView = ({ closeModal }: Props) => {
               onChangeCustom={(value) => handleChange('amount', value)}
               error={errors.amount !== '' ? true : false}
               helperText={errors.amount}
-              decimalsMax={wallet.erc20TokenBalanceSelected.decimals}
-              asset={wallet.erc20TokenBalanceSelected}
+              decimalsMax={wallet.tokenBalance.decimals}
+              asset={wallet.tokenBalance}
             />
           </Wrapper>
           <Buttons>
             <ButtonStyled onClick={closeModal} backgroundTransparent borderVisible>
               CANCEL
             </ButtonStyled>
-            <ButtonStyled onClick={() => setSummaryModalOpen(true)} enabled={confirmEnabled()}>
+            <ButtonStyled onClick={() => transferTokens()} enabled={confirmEnabled()}>
               CONFIRM
             </ButtonStyled>
           </Buttons>

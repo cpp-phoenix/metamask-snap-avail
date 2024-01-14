@@ -1,6 +1,6 @@
 import { web3EnablePromise } from '@polkadot/extension-dapp';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { Network, VoyagerTransactionType, Erc20TokenBalance, Erc20Token, Account } from '@types';
+import { Network, Erc20TokenBalance, Account } from '@types';
 import type { InjectedMetamaskExtension } from '@avail/metamask-polkadot-adapter/src/types';
 import type { InjectedExtension } from '@polkadot/extension-inject/types';
 import { enablePolkadotSnap } from '@avail/metamask-polkadot-adapter';
@@ -11,7 +11,6 @@ import { setInfoModalVisible, setMinVersionModalVisible } from 'slices/modalSlic
 import {
   setForceReconnect,
   setWalletConnection,
-  setErc20TokenBalances,
   setAccounts,
   setErc20TokenBalanceSelected
 } from 'slices/walletSlice';
@@ -32,10 +31,8 @@ export async function installPolkadotSnap(): Promise<boolean> {
   const snapId = process.env.REACT_APP_SNAP_ID ? process.env.REACT_APP_SNAP_ID : defaultSnapId;
   try {
     await enablePolkadotSnap({ networkName: 'avail' }, snapId);
-    console.info('Snap installed!!');
     return true;
   } catch (err) {
-    console.error(err);
     return false;
   }
 }
@@ -46,7 +43,6 @@ export async function isPolkadotSnapInstalled(): Promise<boolean> {
 
 export async function getInjectedMetamaskExtension(): Promise<InjectedMetamaskExtension | null> {
   const extensions = await web3EnablePromise;
-  console.log('Extensions are: ', extensions);
   return getMetamaskExtension(extensions || []) || null;
 }
 
@@ -69,12 +65,9 @@ export async function initiatePolkadotSnap(
   const snapId = process.env.REACT_APP_SNAP_ID ? process.env.REACT_APP_SNAP_ID : defaultSnapId;
 
   try {
-    console.info('Attempting to connect to snap...');
     const metamaskPolkadotSnap = await enablePolkadotSnap({ networkName: network }, snapId);
-    console.info('Snap installed!');
     return { isSnapInstalled: true, snap: metamaskPolkadotSnap };
   } catch (e) {
-    console.error(e);
     return { isSnapInstalled: false };
   }
 }
@@ -82,9 +75,7 @@ export async function initiatePolkadotSnap(
 export const useAvailSnap = () => {
   const dispatch = useAppDispatch();
   const { loader } = useAppSelector((state: any) => state.UI);
-  const { accounts, transactions, erc20TokenBalances, provider } = useAppSelector(
-    (state) => state.wallet
-  );
+  const { accounts, transactions, provider } = useAppSelector((state) => state.wallet);
   const metamaskState = useAppSelector((state) => state.metamask);
   const networkState = useAppSelector((state) => state.networks);
   const snapId = process.env.REACT_APP_SNAP_ID
@@ -123,19 +114,8 @@ export const useAvailSnap = () => {
     return [
       {
         name: 'avail',
+        displayName: 'Goldberg Testnet',
         chainId: '1'
-      },
-      {
-        name: 'polkadot',
-        chainId: '2'
-      },
-      {
-        name: 'kusama',
-        chainId: '3'
-      },
-      {
-        name: 'westend',
-        chainId: '4'
       }
     ] as Network[];
   };
@@ -143,11 +123,9 @@ export const useAvailSnap = () => {
   const switchNetwork = async (network: number, chainId: string) => {
     dispatch(enableLoadingWithMessage('Switching Network...'));
     if (metamaskState.hasMetaMask && metamaskState.polkadotSnap.isInstalled) {
-      console.log('before: ', metamaskState);
-      await metamaskState.polkadotSnap.api.setConfiguration({
+      await metamaskState?.polkadotSnap?.api?.setConfiguration({
         networkName: networkState.items[network].name
       });
-      console.log('after: ', metamaskState);
       dispatch(disableLoading());
       return true;
     } else {
@@ -160,18 +138,6 @@ export const useAvailSnap = () => {
     return networkState.items[networkState.activeNetwork];
   };
 
-  const oldVersionDetected = async () => {
-    // const snaps = await provider.request({ method: 'wallet_getSnaps' });
-    // if (typeof snaps[snapId]?.version !== 'undefined') {
-    //   // console.log(`snaps[snapId][version]: ${snaps[snapId]?.version}`);
-    //   // console.log(`snaps[snapId][version].split('_')[0]: ${snaps[snapId]?.version?.split('-')?.[0]}`);
-    //   // console.log(`minSnapVersion: ${minSnapVersion}`);
-    //   // console.log(`semver.lt: ${semver.lt(snaps[snapId]?.version?.split('-')?.[0], minSnapVersion)}`);
-    //   return semver.lt(snaps[snapId]?.version?.split('-')?.[0], minSnapVersion);
-    // }
-    return false;
-  };
-
   const getWalletData = async (
     networkId: number,
     updateAccounts: boolean,
@@ -180,7 +146,6 @@ export const useAvailSnap = () => {
     if (!loader.isLoading && !networks) {
       dispatch(enableLoadingWithMessage('Getting network data ...'));
     }
-    console.log(metamaskState);
     if (updateAccounts) {
       dispatch(
         setData({
@@ -197,37 +162,31 @@ export const useAvailSnap = () => {
         })
       );
     }
-    console.log(metamaskState);
     const acc = [
       {
         address: metamaskState.polkadotSnap.address,
         publicKey: metamaskState.polkadotSnap.publicKey
       }
     ] as Account[];
-    console.log('check account: ', metamaskState.polkadotSnap.address);
-    console.log('check account: ', metamaskState.polkadotSnap.publicKey);
 
     if (networks) {
       dispatch(setNetworks(networks));
     }
-    // dispatch(setErc20TokenBalances(tokensWithBalances));
     dispatch(setAccounts(acc));
-    console.log('accounts are: ', acc);
     if (acc.length > 0) {
-      setErc20TokenBalanceSelected({
-        amount: metamaskState.polkadotSnap.balance
-      } as Erc20TokenBalance);
+      dispatch(
+        setErc20TokenBalanceSelected({
+          amount: metamaskState.polkadotSnap.balance,
+          symbol: 'AVL',
+          decimals: 18
+        } as Erc20TokenBalance)
+      );
       dispatch(setInfoModalVisible(true));
     }
     dispatch(disableLoading());
   };
 
   const initSnap = async () => {
-    // if (await oldVersionDetected()) {
-    //   dispatch(setMinVersionModalVisible(true));
-    //   dispatch(disableLoading());
-    //   return;
-    // }
     if (!loader.isLoading) {
       dispatch(enableLoadingWithMessage('Initializing wallet ...'));
     }
@@ -244,8 +203,6 @@ export const useAvailSnap = () => {
         })
       );
     } else {
-      // const isInstalled = await isPolkadotSnapInstalled();
-      // console.log('is it installed Schi', isInstalled);
       dispatch(
         setData({
           isInstalled: true,
@@ -284,12 +241,9 @@ export const useAvailSnap = () => {
   const checkConnection = async () => {
     dispatch(enableLoadingWithMessage('Connecting...'));
     const isInstalled = await isPolkadotSnapInstalled();
-    console.log('is it installed', isInstalled);
     if (isInstalled) {
-      console.log('Set Wallet connection true');
       dispatch(setWalletConnection(true));
     } else {
-      console.log('Set Wallet connection false');
       dispatch(setWalletConnection(false));
       dispatch(disableLoading());
     }
@@ -306,7 +260,6 @@ export const useAvailSnap = () => {
     connectToSnap,
     getNetworks,
     getCurrentNetwork,
-    satisfiesVersion: oldVersionDetected,
     getWalletData,
     initSnap,
     checkConnection,

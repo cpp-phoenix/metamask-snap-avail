@@ -11,6 +11,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "0.1.18",
     "@headlessui/react": "^1.7.17",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
@@ -23,6 +24,7 @@
     "@polkadot/extension-dapp": "^0.46.5",
     "@polkadot/util": "^12.3.2",
     "@reduxjs/toolkit": "^1.8.1",
+    "@storybook/react": "6.5.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -38,8 +40,10 @@
     "react-qr-code": "^2.0.12",
     "react-redux": "^9.0.4",
     "react-scripts": "5.0.1",
+    "redux-persist": "6.0.0",
     "redux-thunk": "^2.4.2",
     "sass": "^1.26.3",
+    "styled-components": "5.3.5",
     "toastr2": "^3.0.0-alpha.18",
     "typescript": "4.7.3",
     "web-vitals": "^2.1.4"
@@ -47,6 +51,7 @@
   "devDependencies": {
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
+    "@types/styled-components": "^5.1.34",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
     "eslint": "^8.17.0"

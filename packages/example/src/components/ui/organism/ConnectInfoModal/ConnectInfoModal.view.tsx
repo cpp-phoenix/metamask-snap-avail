@@ -17,7 +17,7 @@ export const ConnectInfoModalView = ({ address, onButtonClick }: Props) => {
       <Wrapper>
         <div>
           <Normal>Network</Normal>
-          <Bold>{networks.items[networks.activeNetwork].name}</Bold>
+          <Bold>{networks.items[networks.activeNetwork].displayName}</Bold>
         </div>
         <div>
           <Normal>Avail account</Normal>
