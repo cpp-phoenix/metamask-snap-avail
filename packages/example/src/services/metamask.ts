@@ -52,7 +52,7 @@ export async function initiatePolkadotSnap(): Promise<SnapInitializationResponse
 
   try {
     console.info('Attempting to connect to snap...');
-    const metamaskPolkadotSnap = await enablePolkadotSnap({ networkName: 'westend' }, snapId);
+    const metamaskPolkadotSnap = await enablePolkadotSnap({ networkName: 'avail' }, snapId);
     console.info('Snap installed!');
     return { isSnapInstalled: true, snap: metamaskPolkadotSnap };
   } catch (e) {

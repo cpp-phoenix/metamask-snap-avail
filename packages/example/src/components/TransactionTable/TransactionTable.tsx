@@ -45,14 +45,14 @@ export const TransactionTable = (props: TransactionTableProps): React.JSX.Elemen
                 {formatBalance(tx.amount, {
                   decimals: 12,
                   withSi: true,
-                  withUnit: 'KSM'
+                  withUnit: 'avl'
                 })}
               </TableCell>
               <TableCell align="center">
                 {formatBalance(tx.fee, {
                   decimals: 12,
                   withSi: true,
-                  withUnit: 'KSM'
+                  withUnit: 'avl'
                 })}
               </TableCell>
             </TableRow>

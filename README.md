@@ -25,7 +25,7 @@ Please make sure to be using yarn for everything.
 
 - `yarn install`
 - `cd packages/snap`
-- `rm -rf build && rm -rf dist && cd ../.. && yarn build:snap && cd packages/snap && mm-snap manifest --fix`
+- `rm -rf build && rm -rf dist && cd ../.. && yarn build:adapter && yarn build:snap && cd packages/snap && yarn mm-snap manifest --fix`
 - `yarn start` <br/>
 
 In another terminal
