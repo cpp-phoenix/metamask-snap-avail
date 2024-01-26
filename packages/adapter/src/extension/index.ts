@@ -21,53 +21,74 @@ function transformAccounts(accounts: string[]): InjectedAccount[] {
   }));
 }
 
-function injectPolkadotSnap(win: Web3Window): void {
-  win.injectedWeb3.Snap = {
-    enable: async (): Promise<Injected> => {
-      const snap = (await enablePolkadotSnap(config)).getMetamaskSnapApi();
+async function injectPolkadotSnap(win: Web3Window): Promise<void> {
+  try {
+    const snap = (await enablePolkadotSnap(config)).getMetamaskSnapApi();
 
-      return {
-        accounts: {
-          get: async (): Promise<InjectedAccount[]> => {
-            const response = await snap.getAddress();
-            return transformAccounts([response]);
+    win.injectedWeb3.Snap = {
+      enable: async (): Promise<Injected> => {
+        return {
+          accounts: {
+            get: async (): Promise<InjectedAccount[]> => {
+              try {
+                const response = await snap.getAddress();
+                return transformAccounts([response]);
+              } catch (error) {
+                console.error('Error getting address:', error);
+                throw error;
+              }
+            },
+            subscribe: (_cb: (accounts: InjectedAccount[]) => void): (() => void) => {
+              // Currently there is only available only one account, in that case this method will never return anything
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              return (): void => {};
+            }
           },
-          // Currently there is only available only one account, in that case this method will never return anything
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          subscribe: (_cb: (accounts: InjectedAccount[]) => void): (() => void) => {
-            return (): void => {};
+          signer: {
+            signPayload: async (payload: SignerPayloadJSON): Promise<SignerResult> => {
+              try {
+                const signature = (await snap.signPayloadJSON(payload)) as HexString;
+                return { id: 0, signature };
+              } catch (error) {
+                console.error('Error signing payload:', error);
+                throw error;
+              }
+            },
+            signRaw: async (raw: SignerPayloadRaw): Promise<SignerResult> => {
+              try {
+                const signature = (await snap.signPayloadRaw(raw)) as HexString;
+                return { id: 0, signature };
+              } catch (error) {
+                console.error('Error signing raw payload:', error);
+                throw error;
+              }
+            }
           }
-        },
-        signer: {
-          signPayload: async (payload: SignerPayloadJSON): Promise<SignerResult> => {
-            const signature = (await snap.signPayloadJSON(payload)) as HexString;
-            return { id: 0, signature };
-          },
-          signRaw: async (raw: SignerPayloadRaw): Promise<SignerResult> => {
-            const signature = (await snap.signPayloadRaw(raw)) as HexString;
-            return { id: 0, signature };
-          }
-        }
-      };
-    },
-    version: '0'
-  };
+        };
+      },
+      version: '0'
+    };
+  } catch (error) {
+    console.error('Error injecting Polkadot Snap:', error);
+    throw error;
+  }
 }
 
-export function initPolkadotSnap(): Promise<boolean> {
-  return new Promise((resolve): void => {
+export async function initPolkadotSnap(): Promise<boolean> {
+  try {
     const win = window as Window & Web3Window;
     win.injectedWeb3 = win.injectedWeb3 || {};
 
-    if (hasMetaMask())
-      void isMetamaskSnapsSupported().then((result) => {
-        if (result) {
-          injectPolkadotSnap(win);
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      });
-    else resolve(false);
-  });
+    if (hasMetaMask()) {
+      const result = await isMetamaskSnapsSupported();
+      if (result) {
+        await injectPolkadotSnap(win);
+        return true;
+      }
+    }
+    return false;
+  } catch (error) {
+    console.error('Error initializing Polkadot Snap:', error);
+    return false;
+  }
 }
