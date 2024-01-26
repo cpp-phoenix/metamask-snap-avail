@@ -16,7 +16,7 @@ export const defaultSnapId = 'local:http://localhost:8081';
 export async function installPolkadotSnap(): Promise<boolean> {
   const snapId = process.env.REACT_APP_SNAP_ID ? process.env.REACT_APP_SNAP_ID : defaultSnapId;
   try {
-    await enablePolkadotSnap({ networkName: 'westend' }, snapId);
+    await enablePolkadotSnap({ networkName: 'avail' }, snapId);
     console.info('Snap installed!!');
     return true;
   } catch (err) {

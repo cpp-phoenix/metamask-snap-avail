@@ -62,6 +62,7 @@ export const Transfer: React.FC<ITransferProps> = ({ network, onNewTransferCallb
       if (amount && recipient) {
         // const convertedAmount = formatNumberToBalance(parseFloat(amount.toString()), 12);
         const txPayload = await api.generateTransactionPayload(amount, recipient);
+        console.log('txPayload', txPayload);
         const signedTx = await api.signPayloadJSON(txPayload.payload);
         const tx = await api.send(signedTx, txPayload);
         showAlert('info', `Transaction: ${JSON.stringify(tx, null, 2)}`);

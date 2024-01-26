@@ -14,15 +14,17 @@ async function sendSnapMethod(
   request: MetamaskPolkadotRpcRequest,
   snapId: string
 ): Promise<unknown> {
-  console.info('sendSnapMethod', request, snapId);
   try {
-    return await window.ethereum.request({
+    console.info('sendSnapMethod', request, snapId);
+    const result = await window.ethereum.request({
       method: 'wallet_invokeSnap',
       params: {
         request,
         snapId
       }
     });
+    console.info('result', request, result);
+    return result;
   } catch (error) {
     console.error('Error sending snap method:', error);
     throw error;

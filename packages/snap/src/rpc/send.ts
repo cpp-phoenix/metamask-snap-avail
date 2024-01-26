@@ -22,14 +22,14 @@ export async function send(
       .paymentInfo(sender);
 
     const txHash = await api.rpc.author.submitExtrinsic(extrinsic);
-    const tx: Transaction = {
+    const tx = {
       amount: amount,
       block: txHash.toHex(),
       destination: destination,
       fee: String(paymentInfo.partialFee.toJSON()),
       hash: extrinsic.hash.toHex(),
       sender: sender
-    };
+    } as Transaction;
 
     await saveTxToState(tx);
     return tx;

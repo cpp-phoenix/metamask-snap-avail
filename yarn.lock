@@ -3963,9 +3963,10 @@ autoprefixer@^10.4.13:
     picocolors "^1.0.0"
     postcss-value-parser "^4.2.0"
 
-"avail-js-sdk@https://github.com/Abhimanyu121/avail-js":
-  version "0.1.2"
-  resolved "https://github.com/Abhimanyu121/avail-js#714f41fac2486c1061d0a96f1e151c3ae8c5f6a3"
+avail-js-sdk@^0.1.15:
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/avail-js-sdk/-/avail-js-sdk-0.1.15.tgz#298a3c48ecb7c10ec9eeee5251d1a76932d32c34"
+  integrity sha512-tCTINqEA232VZ/nQCqqcR/gOP68YSzqcYoPDIrlqkgK+H4Cz3Hl6QPTrTzf5RWgs/UEMG5eYH9XQ00zmdDUpvA==
   dependencies:
     "@polkadot/api" "^10.10.1"
 

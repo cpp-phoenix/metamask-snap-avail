@@ -19,7 +19,7 @@ export async function getConfiguration(): Promise<SnapConfig> {
     if (!state || !state.config) {
       return defaultConfiguration;
     }
-    return JSON.parse(state.config) as SnapConfig;
+    return JSON.parse(<string>state.config) as SnapConfig;
   } catch (error) {
     console.error('Failed to fetch configuration:', error);
     return defaultConfiguration;

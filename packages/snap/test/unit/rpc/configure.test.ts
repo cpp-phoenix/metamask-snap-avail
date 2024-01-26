@@ -1,6 +1,6 @@
 import chai, { expect } from 'chai';
 import sinonChai from 'sinon-chai';
-import { kusamaConfiguration, westendConfiguration } from '../../../src/configuration/predefined';
+import { availConfiguration } from '../../../src/configuration/predefined';
 import { configure } from '../../../src/rpc/configure';
 import { EmptyMetamaskState } from '../../../src/interfaces';
 import { SnapConfig } from '@avail/metamask-polkadot-types';
@@ -15,21 +15,13 @@ describe('Test rpc handler function: configure', function () {
     walletStub.reset();
   });
 
-  it('should set predefined kusama configuration', async function () {
+  it('should set predefined avail configuration', async function () {
     walletStub.request.returns(EmptyMetamaskState());
     // tested method
-    const result = await configure('kusama', {});
+    const result = await configure('avail', {});
 
     // assertions
-    expect(result).to.be.deep.eq(kusamaConfiguration);
-  });
-
-  it('should set predefined westend configuration', async function () {
-    walletStub.request.returns(EmptyMetamaskState());
-    // tested method
-    const result = await configure('westend', {});
-    // assertions
-    expect(result).to.be.deep.eq(westendConfiguration);
+    expect(result).to.be.deep.eq(availConfiguration);
   });
 
   it('should set custom configuration', async function () {
@@ -50,10 +42,10 @@ describe('Test rpc handler function: configure', function () {
   it('should set predefined kusama configuration with additional property override', async function () {
     walletStub.request.returns(EmptyMetamaskState());
     // tested method
-    const customConfiguration = kusamaConfiguration;
-    customConfiguration.unit.symbol = 'TST_KSM';
-    const result = await configure('kusama', {
-      unit: { symbol: 'TST_KSM' }
+    const customConfiguration = availConfiguration;
+    customConfiguration.unit.symbol = 'AVL';
+    const result = await configure('avail', {
+      unit: { symbol: 'AVL' }
     } as SnapConfig);
     // assertions
     expect(result).to.be.deep.eq(customConfiguration);
