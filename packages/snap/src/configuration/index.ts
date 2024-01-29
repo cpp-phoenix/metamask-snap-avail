@@ -13,10 +13,15 @@ export function getDefaultConfiguration(networkName: string): SnapConfig {
 }
 
 export async function getConfiguration(): Promise<SnapConfig> {
-  const state = await getMetamaskState();
+  try {
+    const state = await getMetamaskState();
 
-  if (!state || !state.config) {
+    if (!state || !state.config) {
+      return defaultConfiguration;
+    }
+    return JSON.parse(<string>state.config) as SnapConfig;
+  } catch (error) {
+    console.error('Failed to fetch configuration:', error);
     return defaultConfiguration;
   }
-  return JSON.parse(<string>state.config) as SnapConfig;
 }

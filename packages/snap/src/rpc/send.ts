@@ -9,16 +9,17 @@ export async function send(
   signature: Uint8Array | `0x${string}`,
   txPayload: TxPayload
 ): Promise<Transaction> {
-  const sender = await getAddress();
-  const destination = txPayload.payload.address;
+  try {
+    const sender = await getAddress();
+    const destination = txPayload.payload.address;
 
-  const extrinsic = api.createType('Extrinsic', txPayload.tx);
-  extrinsic.addSignature(sender, signature, txPayload.payload);
+    const extrinsic = api.createType('Extrinsic', txPayload.tx);
+    extrinsic.addSignature(sender, signature, txPayload.payload);
 
-  const amount = extrinsic.args[1].toJSON();
-  const paymentInfo = await api.tx.balances
-    .transfer(destination, String(amount))
-    .paymentInfo(sender);
+    const amount = extrinsic.args[1].toJSON();
+    const paymentInfo = await api.tx.balances
+      .transfer(destination, String(amount))
+      .paymentInfo(sender);
 
   const txHash = await api.rpc.author.submitExtrinsic(extrinsic);
   // const tx = {
@@ -32,6 +33,11 @@ export async function send(
 
   const tx = {} as Transaction;
 
-  await saveTxToState(tx);
-  return tx;
+    await saveTxToState(tx);
+    return tx;
+  } catch (error) {
+    // Handle the error appropriately
+    console.error(error);
+    throw error;
+  }
 }
