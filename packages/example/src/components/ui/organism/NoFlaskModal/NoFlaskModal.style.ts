@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import starknetSrc from 'assets/images/starknet-logo.svg';
 import foxIconSrc from 'assets/images/flask-fox-icon.svg';
 import { Button } from 'components/ui/atom/Button';
 
@@ -15,14 +14,6 @@ export const Wrapper = styled.div`
   a {
     all: unset;
   }
-`;
-
-export const StarknetLogo = styled.img.attrs(() => ({
-  src: starknetSrc
-}))`
-  width: 158px;
-  height: 32px;
-  margin-bottom: 32px;
 `;
 
 export const Title = styled.div`

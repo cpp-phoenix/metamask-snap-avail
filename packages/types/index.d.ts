@@ -159,7 +159,7 @@ export interface Transaction {
   // amount: string | number;
   // fee: string;
   txnHash: string; // in hex
-  txnType: VoyagerTransactionType | string;
+  txnType: ExplorerTransactionType | string;
   chainId: string; // in hex
   senderAddress: string; // in hex
   contractAddress: string; // in hex
@@ -222,12 +222,4 @@ export interface SignerPayloadJSON {
    * @description The version of the extrinsic we are dealing with
    */
   version: number;
-}
-
-export interface Erc20Token {
-  address: string; // in hex
-  name: string;
-  symbol: string;
-  decimals: number;
-  chainId: string; // in hex
 }

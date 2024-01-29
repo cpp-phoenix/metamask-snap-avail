@@ -1,15 +1,14 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { shortenAddress } from 'utils/utils';
 import { ethers } from 'ethers';
-// import { Transaction, TransactionStatus, VoyagerTransactionType } from '../../../../../@types';
 
-enum VoyagerTransactionType { // for retrieving txns from Voyager
+enum ExplorerTransactionType { // for retrieving txns from Explorer
   DEPLOY = 'deploy',
   DEPLOY_ACCOUNT = 'deploy_account',
   INVOKE = 'invoke'
 }
 
-enum TransactionStatus { // for retrieving txn from Starknet feeder gateway
+enum TransactionStatus { // for retrieving txn from Avail feeder gateway
   RECEIVED = 'RECEIVED',
   PENDING = 'PENDING',
   ACCEPTED_ON_L2 = 'ACCEPTED_ON_L2',
@@ -26,7 +25,7 @@ interface Transaction {
   // amount: string | number;
   // fee: string;
   txnHash: string; // in hex
-  txnType: VoyagerTransactionType | string;
+  txnType: ExplorerTransactionType | string;
   chainId: string; // in hex
   senderAddress: string; // in hex
   contractAddress: string; // in hex
@@ -55,13 +54,13 @@ export const getIcon = (transactionName: string): IconProp => {
 };
 
 export const getTxnName = (transaction: Transaction): string => {
-  if (transaction.txnType.toLowerCase() === VoyagerTransactionType.INVOKE) {
+  if (transaction.txnType.toLowerCase() === ExplorerTransactionType.INVOKE) {
     if (transaction.contractFuncName.toLowerCase() === 'transfer') {
       return 'Send';
     }
-  } else if (transaction.txnType.toLowerCase() === VoyagerTransactionType.DEPLOY) {
+  } else if (transaction.txnType.toLowerCase() === ExplorerTransactionType.DEPLOY) {
     return 'Deploy';
-  } else if (transaction.txnType.toLowerCase() === VoyagerTransactionType.DEPLOY_ACCOUNT) {
+  } else if (transaction.txnType.toLowerCase() === ExplorerTransactionType.DEPLOY_ACCOUNT) {
     return 'Deploy Account';
   }
   return 'Unknown';

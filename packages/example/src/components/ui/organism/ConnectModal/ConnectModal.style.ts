@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import starknetSrc from 'assets/images/starknet-logo.svg';
-import availSrc from 'assets/images/availlogo.png';
+import availSrc from 'assets/images/avail-logo.png';
 import foxIconSrc from 'assets/images/metamask-fox-icon.svg';
 import { Button } from 'components/ui/atom/Button';
 
@@ -13,14 +12,6 @@ export const Wrapper = styled.div`
   padding-top: 40px;
   border-radius: 8px;
   align-items: center;
-`;
-
-export const StarknetLogo = styled.img.attrs(() => ({
-  src: starknetSrc
-}))`
-  width: 158px;
-  height: 32px;
-  margin-bottom: 32px;
 `;
 
 export const AvailLogo = styled.img.attrs(() => ({

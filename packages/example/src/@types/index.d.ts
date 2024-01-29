@@ -1,8 +1,8 @@
-import type { SnapConfig, Erc20Token } from '@avail/metamask-polkadot-types';
+import type { SnapConfig } from '@avail/metamask-polkadot-types';
 
 declare module '@avail/metamask-polkadot-adapter' {
   export function injectMetamaskPolkadotSnapProvider(
-    network: 'westend' | 'kusama',
+    network: 'avail',
     config?: SnapConfig,
     pluginOrigin?: string
   ): void;
@@ -19,6 +19,15 @@ export interface Erc20TokenBalance {
   symbol: string;
   decimals: number;
 }
+
+export interface Erc20Token {
+  address: string; // in hex
+  name: string;
+  symbol: string;
+  decimals: number;
+  chainId: string; // in hex
+}
+
 export type TransactionStatusOptions =
   | 'Received'
   | 'Pending'
@@ -27,13 +36,13 @@ export type TransactionStatusOptions =
   | 'Rejected'
   | 'Not Received';
 
-export enum VoyagerTransactionType { // for retrieving txns from Voyager
+export enum ExplorerTransactionType { // for retrieving txns from Explorer
   DEPLOY = 'deploy',
   DEPLOY_ACCOUNT = 'deploy_account',
   INVOKE = 'invoke'
 }
 
-export enum TransactionStatus { // for retrieving txn from Starknet feeder gateway
+export enum TransactionStatus { // for retrieving txn from Avail feeder gateway
   RECEIVED = 'RECEIVED',
   PENDING = 'PENDING',
   ACCEPTED_ON_L2 = 'ACCEPTED_ON_L2',
@@ -42,4 +51,4 @@ export enum TransactionStatus { // for retrieving txn from Starknet feeder gatew
   REJECTED = 'REJECTED'
 }
 
-export type { Erc20Token, Transaction } from '@avail/metamask-polkadot-types';
+export type { Transaction } from '@avail/metamask-polkadot-types';

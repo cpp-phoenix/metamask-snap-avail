@@ -1,6 +1,5 @@
 import { Meta } from '@storybook/react';
 import { BigNumber } from 'ethers';
-// import { constants } from 'starknet';
 import { AmountInputView } from './AmountInput.view';
 
 export default {

@@ -7,7 +7,6 @@ import {
   DescriptionCentered,
   MetamaskIcon,
   ReadMore,
-  StarknetLogo,
   AvailLogo,
   Title,
   WhatIsSnap,
@@ -35,7 +34,7 @@ export const ConnectModalView = () => {
         <WhatIsSnap>What is a snap?</WhatIsSnap>
         <Description>
           Snaps extend the capabilities of MetaMask by adding new functionalities. This Snap allows
-          MetaMask to be compatible with Starknet and manage your keys.
+          MetaMask to be compatible with Avail and manage your keys.
         </Description>
         <ReadMore onClick={handleReadMoreClick}>Read more</ReadMore>
       </WhatIsSnapDiv>

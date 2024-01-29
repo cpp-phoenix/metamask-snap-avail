@@ -53,7 +53,6 @@ export const SendSummaryModalView = ({ address, amount, chainId, closeModal }: P
   const [totalAmount, setTotalAmount] = useState('');
   const [totalAmountUSD, setTotalAmountUSD] = useState('');
   const [totalExceedsBalance, setTotalExceedsBalance] = useState(false);
-  // const { estimateFees, sendTransaction, getTransactions } = useStarkNetSnap();
 
   const toastr = new Toastr({
     closeDuration: 10000000,

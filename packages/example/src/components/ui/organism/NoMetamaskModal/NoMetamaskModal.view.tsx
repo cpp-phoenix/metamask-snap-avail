@@ -2,7 +2,6 @@ import {
   ConnectButton,
   DescriptionCentered,
   MetamaskIcon,
-  StarknetLogo,
   Title,
   Wrapper
 } from './NoMetamaskModal.style';
@@ -10,10 +9,9 @@ import {
 export const NoMetamaskModalView = () => {
   return (
     <Wrapper>
-      <StarknetLogo />
       <Title>You don't have the MetaMask extension</Title>
       <DescriptionCentered>
-        You need to install MetaMask extension in order to use the Starknet Snap.
+        You need to install MetaMask extension in order to use the Avail Snap.
         <br />
         <br />
       </DescriptionCentered>

@@ -7,7 +7,7 @@ import { enablePolkadotSnap } from '@avail/metamask-polkadot-adapter';
 import type { MetamaskPolkadotSnap } from '@avail/metamask-polkadot-adapter/build/snap';
 import Toastr from 'toastr2';
 import { setData } from 'slices/metamaskSlice';
-import { setInfoModalVisible, setMinVersionModalVisible } from 'slices/modalSlice';
+import { setInfoModalVisible } from 'slices/modalSlice';
 import {
   setForceReconnect,
   setWalletConnection,
@@ -226,9 +226,6 @@ export const useAvailSnap = () => {
           const toastr = new Toastr();
           toastr.error('Snap is unaccessible or unauthorized');
           dispatch(setWalletConnection(false));
-        }
-        if (err.code && err.code === -32603) {
-          dispatch(setMinVersionModalVisible(true));
         }
         //eslint-disable-next-line no-console
         console.error('Error while Initializing wallet', err);
