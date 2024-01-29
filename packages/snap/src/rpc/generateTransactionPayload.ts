@@ -3,6 +3,7 @@ import type { SubmittableExtrinsic } from '@polkadot/api/types';
 import type { TxPayload } from '@avail/metamask-polkadot-types';
 import { getAddress } from './getAddress';
 import { ApiPromise, formatNumberToBalance } from 'avail-js-sdk';
+import { BN } from 'bn.js';
 
 export async function generateTransactionPayload(
   api: ApiPromise,
@@ -28,8 +29,8 @@ export async function generateTransactionPayload(
     };
 
     // define transaction method
-    const _amount = formatNumberToBalance(parseFloat(amount.toString()));
-    const data: SubmittableExtrinsic<'promise'> = api.tx.balances.transfer(to, _amount);
+    // const _amount = formatNumberToBalance(parseFloat(amount.toString()));
+    const data: SubmittableExtrinsic<'promise'> = api.tx.balances.transfer(to, new BN(amount));
     const signerPayload = api.createType('SignerPayload', {
       genesisHash: api.genesisHash,
       runtimeVersion: api.runtimeVersion,

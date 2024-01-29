@@ -24,7 +24,7 @@ export class MetamaskPolkadotSnap {
   public constructor(pluginOrigin: string, config: SnapConfig) {
     this.pluginOrigin = pluginOrigin;
     this.snapId = `${this.pluginOrigin}`;
-    this.config = config || { networkName: 'westend' };
+    this.config = config || { networkName: 'avail' };
   }
 
   public getMetamaskSnapApi = (): MetamaskSnapApi => {

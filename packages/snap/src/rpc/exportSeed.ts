@@ -15,10 +15,9 @@ export async function exportSeed(): Promise<string | null> {
       const bip44Node: JsonBIP44CoinTypeNode = (await snap.request({
         method: 'snap_getBip44Entropy',
         params: { coinType: kusamaCoinType }
-      })) as JsonBIP44CoinTypeNode;
+      }));
       return bip44Node.privateKey.slice(0, 32);
     }
-
     return null;
   } catch (error) {
     // Handle any potential errors here
