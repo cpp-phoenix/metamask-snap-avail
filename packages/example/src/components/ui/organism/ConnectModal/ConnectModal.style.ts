@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import starknetSrc from 'assets/images/starknet-logo.svg';
-import availSrc from 'assets/images/availlogo.png';
+import availSrc from 'assets/images/avail-logo.png';
 import foxIconSrc from 'assets/images/metamask-fox-icon.svg';
 import { Button } from 'components/ui/atom/Button';
 

@@ -10,7 +10,6 @@ import {
 import { isSpecialInputKey, isValidAddress } from 'utils/utils';
 import { HelperText } from 'components/ui/atom/HelperText';
 import { Label } from 'components/ui/atom/Label';
-import { STARKNET_ADDRESS_LENGTH } from 'utils/constants';
 import { Icon, Input, InputContainer, Left, RowWrapper, Wrapper } from './AddressInput.style';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
@@ -32,16 +31,6 @@ export const AddressInputView = ({
 
   const displayIcon = () => {
     return valid || error !== '';
-  };
-
-  const handleOnKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (
-      inputRef.current &&
-      inputRef.current.value.length >= STARKNET_ADDRESS_LENGTH &&
-      !isSpecialInputKey(event)
-    ) {
-      event.preventDefault();
-    }
   };
 
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +78,6 @@ export const AddressInputView = ({
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             ref={inputRef}
-            onKeyDown={(event: any) => handleOnKeyDown(event)}
             onChange={(event: any) => handleOnChange(event)}
             {...otherProps}
           />

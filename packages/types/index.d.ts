@@ -159,7 +159,7 @@ export interface Transaction {
   // amount: string | number;
   // fee: string;
   txnHash: string; // in hex
-  txnType: VoyagerTransactionType | string;
+  txnType: ExplorerTransactionType | string;
   chainId: string; // in hex
   senderAddress: string; // in hex
   contractAddress: string; // in hex

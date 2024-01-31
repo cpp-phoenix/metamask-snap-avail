@@ -1,6 +1,5 @@
 import { useAppSelector } from 'hooks/redux';
 import { FC, useEffect, useRef } from 'react';
-// import { useStarkNetSnap } from 'services';
 import { Transaction } from '@types';
 import { TRANSACTIONS_REFRESH_FREQUENCY } from 'utils/constants';
 import { IListProps } from '../List/List.view';
@@ -12,7 +11,6 @@ interface Props {
 }
 
 export const TransactionsListView = ({ transactions }: Props) => {
-  // const { getTransactions } = useStarkNetSnap();
   const networks = useAppSelector((state) => state.networks);
   const wallet = useAppSelector((state) => state.wallet);
   const timeoutHandle = useRef(setTimeout(() => {}));

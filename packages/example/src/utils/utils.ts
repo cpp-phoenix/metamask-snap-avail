@@ -3,13 +3,9 @@ import { ethers } from 'ethers';
 import { Erc20Token, Erc20TokenBalance } from '@types';
 import {
   DECIMALS_DISPLAYED_MAX_LENGTH,
-  STARKNET_MAINNET_EXPLORER,
-  STARKNET_TESTNET_EXPLORER,
-  STARKNET_SEPOLIA_TESTNET_EXPLORER,
-  SEPOLIA_CHAINID,
+  GOLDBERG_TESTNET_EXPLORER,
   TIMEOUT_DURATION
 } from './constants';
-// import { constants } from 'starknet';
 
 export const shortenAddress = (address: string, num = 3) => {
   if (!address) return '';
@@ -19,19 +15,10 @@ export const shortenAddress = (address: string, num = 3) => {
 };
 
 export const openExplorerTab = (address: string, type = 'contract', chainId = '1' as string) => {
-  let explorerUrl = STARKNET_TESTNET_EXPLORER;
+  let explorerUrl = GOLDBERG_TESTNET_EXPLORER;
   switch (chainId) {
     case '1':
-      explorerUrl = STARKNET_MAINNET_EXPLORER;
-      break;
-    case '2':
-      explorerUrl = STARKNET_TESTNET_EXPLORER;
-      break;
-    case '3':
-      explorerUrl = STARKNET_SEPOLIA_TESTNET_EXPLORER;
-      break;
-    case '4':
-      explorerUrl = STARKNET_TESTNET_EXPLORER;
+      explorerUrl = GOLDBERG_TESTNET_EXPLORER;
       break;
   }
   window.open(explorerUrl + type + '/' + address, '_blank')?.focus();

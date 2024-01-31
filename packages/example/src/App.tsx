@@ -17,14 +17,13 @@ import 'toastr2/dist/toastr.min.css';
 import { NoMetamaskModal } from 'components/ui/organism/NoMetamaskModal';
 import { useHasMetamask } from 'hooks/useHasMetamask';
 import { useAvailSnap } from 'services/metamask';
-import { MinVersionModal } from './components/ui/organism/MinVersionModal';
 
 library.add(fas, far);
 
 function App(): React.JSX.Element {
   const { initSnap, getWalletData, checkConnection } = useAvailSnap();
   const { accounts, connected, forceReconnect, provider } = useAppSelector((state) => state.wallet);
-  const { infoModalVisible, minVersionModalVisible } = useAppSelector((state) => state.modals);
+  const { infoModalVisible } = useAppSelector((state) => state.modals);
   const { loader } = useAppSelector((state) => state.UI);
   const networks = useAppSelector((state) => state.networks);
   const { hasMetamask } = useHasMetamask();
@@ -61,9 +60,6 @@ function App(): React.JSX.Element {
       <FrameworkView connected={connected}>
         <PopIn isOpen={!connected && !loading} showClose={false}>
           <NoMetamaskModal />
-        </PopIn>
-        <PopIn isOpen={minVersionModalVisible} showClose={false}>
-          <MinVersionModal />
         </PopIn>
         <PopIn isOpen={!loading && !!hasMetamask && !connected} showClose={false}>
           <ConnectModal />

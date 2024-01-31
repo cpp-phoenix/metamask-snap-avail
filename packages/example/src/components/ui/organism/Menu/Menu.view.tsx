@@ -1,11 +1,10 @@
-import logo from 'assets/images/availlogo.png';
+import logo from 'assets/images/avail-logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { HTMLAttributes } from 'react';
 import { Menu } from '@headlessui/react';
 import { theme } from 'theme/default';
 import { Radio, Skeleton } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-// import { useStarkNetSnap } from 'services';
 import {
   setWalletConnection,
   setForceReconnect,
