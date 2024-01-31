@@ -10,7 +10,7 @@ export type SnapInstallationParamNames = string;
 export * from './extension';
 
 export async function enablePolkadotSnap(
-  config: SnapConfig = { networkName: 'westend' },
+  config: SnapConfig = { networkName: 'avail' },
   snapOrigin?: string,
   snapInstallationParams: Record<SnapInstallationParamNames, unknown> = {}
 ): Promise<MetamaskPolkadotSnap> {

@@ -3,9 +3,7 @@ import sinonChai from 'sinon-chai';
 import type { SnapConfig } from '@avail/metamask-polkadot-types';
 import { getConfiguration, getDefaultConfiguration } from '../../../src/configuration';
 import {
-  defaultConfiguration,
-  kusamaConfiguration,
-  westendConfiguration
+  defaultConfiguration
 } from '../../../src/configuration/predefined';
 import { EmptyMetamaskState } from '../../../src/interfaces';
 import type { WalletMock } from '../wallet.mock';
@@ -15,14 +13,10 @@ chai.use(sinonChai);
 
 describe('Test configuration functions', function () {
   describe('getDefaultConfiguration', function () {
-    it('should return kusama configuration on "kusama"', function () {
-      const configuration = getDefaultConfiguration('kusama');
-      expect(configuration).to.be.deep.eq(kusamaConfiguration);
-    });
 
     it('should return westend configuration on "westend"', function () {
-      const configuration = getDefaultConfiguration('westend');
-      expect(configuration).to.be.deep.eq(westendConfiguration);
+      const configuration = getDefaultConfiguration('avail');
+      expect(configuration).to.be.deep.eq(defaultConfiguration);
     });
 
     it('should return default configuration on empty string', function () {

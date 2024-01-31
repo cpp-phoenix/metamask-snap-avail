@@ -6,9 +6,9 @@ export const availConfiguration: SnapConfig = {
   unit: {
     decimals: 18,
     image: 'https://svgshare.com/i/L2d.svg',
-    symbol: 'avl'
+    symbol: 'AVL'
   },
-  wsRpcUrl: 'https://couscous-devnet.avail.tools/api'
+  wsRpcUrl: 'https://goldberg.avail.tools/api'
 };
 
 export const defaultConfiguration: SnapConfig = availConfiguration;

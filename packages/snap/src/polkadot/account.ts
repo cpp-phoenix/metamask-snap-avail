@@ -10,21 +10,26 @@ import { getKeyringFromSeed } from 'avail-js-sdk';
  * Returns KeyringPair if one is saved in wallet state, creates new one otherwise
  */
 export async function getKeyPair(): Promise<KeyringPair> {
-  const config = await getConfiguration();
-  console.log('Network', getCoinTypeByNetwork(config.networkName));
+  try {
+    const config = await getConfiguration();
+    console.log('Network', getCoinTypeByNetwork(config.networkName));
 
-  const bip44Node = (await snap.request({
-    method: 'snap_getBip44Entropy',
-    params: {
-      coinType: getCoinTypeByNetwork(config.networkName)
-    }
-  })) as JsonBIP44CoinTypeNode;
-  // generate keys
-  const seed = bip44Node.privateKey;
-  console.log('SEED', seed);
-  const keyring = getKeyringFromSeed(seed);
-  return keyring;
-  // return keyring.addFromSeed(stringToU8a(seed));
+    const bip44Node = (await snap.request({
+      method: 'snap_getBip44Entropy',
+      params: {
+        coinType: getCoinTypeByNetwork(config.networkName)
+      }
+    })) as JsonBIP44CoinTypeNode;
+    // generate keys
+    const seed = bip44Node.privateKey;
+    console.log('SEED', seed);
+    const keyring = getKeyringFromSeed(seed);
+    return keyring;
+    // return keyring.addFromSeed(stringToU8a(seed));
+  } catch (error) {
+    console.error('Error in getKeyPair:', error);
+    throw error;
+  }
 }
 
 const getCoinTypeByNetwork = (network: SnapNetworks): number => {

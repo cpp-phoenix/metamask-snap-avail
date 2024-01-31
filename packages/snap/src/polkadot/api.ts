@@ -1,6 +1,7 @@
-import { ApiPromise, HttpProvider, signedExtensions, types, rpc } from 'avail-js-sdk';
+import { ApiPromise, signedExtensions, types, rpc } from 'avail-js-sdk';
 import { getConfiguration } from '../configuration';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
+import { HttpProvider } from '@polkadot/rpc-provider/http';
 
 let api: ApiPromise;
 let provider: HttpProvider;
@@ -11,24 +12,23 @@ let isConnecting: boolean;
  */
 async function initApi(rpcUrl: string): Promise<ApiPromise> {
   try {
-    provider = new HttpProvider(rpcUrl);
+    await cryptoWaitReady();
+    provider = new HttpProvider(rpcUrl)
+    const opt = {
+      provider: provider,
+      noInitWarn: true,
+      types,
+      rpc,
+      signedExtensions
+    }
+    console.log("provider", provider)
+    api = await ApiPromise.create(opt)
+    console.info('Api is ready', api);
+    return api
   } catch (error) {
     console.error('Error on provider creation', error);
     throw error;
   }
-  console.info('Provider created', provider);
-  await cryptoWaitReady();
-  const opt = {
-    provider: provider,
-    noInitWarn: true,
-    types: types,
-    rpc,
-    signedExtensions
-  };
-  api = await ApiPromise.create(opt);
-
-  console.info('Api is ready', api);
-  return api;
 }
 
 export const resetApi = async (): Promise<void> => {

@@ -14,14 +14,21 @@ async function sendSnapMethod(
   request: MetamaskPolkadotRpcRequest,
   snapId: string
 ): Promise<unknown> {
-  console.info('sendSnapMethod', request, snapId);
-  return await window.ethereum.request({
-    method: 'wallet_invokeSnap',
-    params: {
-      request,
-      snapId
-    }
-  });
+  try {
+    console.info('sendSnapMethod', request, snapId);
+    const result = await window.ethereum.request({
+      method: 'wallet_invokeSnap',
+      params: {
+        request,
+        snapId
+      }
+    });
+    console.info('result', request, result);
+    return result;
+  } catch (error) {
+    console.error('Error sending snap method:', error);
+    throw error;
+  }
 }
 
 async function sign(
@@ -83,8 +90,8 @@ export async function getLatestBlock(this: MetamaskPolkadotSnap): Promise<BlockI
       { method: 'getBlock', params: { blockTag: 'latest' } },
       this.snapId
     )) as BlockInfo;
-  } catch (e) {
-    console.log('Unable to fetch latest block', e);
+  } catch (error) {
+    console.error('Unable to fetch latest block:', error);
     return { hash: '', number: '' };
   }
 }
