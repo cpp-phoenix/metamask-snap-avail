@@ -74,7 +74,6 @@ export const walletSlice = createSlice({
     //   }
     // },
     setErc20TokenBalanceSelected: (state, { payload }) => {
-      console.log('Payload is: ', payload);
       state.tokenBalance = payload;
     },
     setTransactions: (state, { payload }) => {
